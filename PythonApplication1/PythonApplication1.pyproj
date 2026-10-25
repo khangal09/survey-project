@@ -36,7 +36,7 @@
   <ItemGroup>
     <Content Include=".dockerignore" />
     <Content Include=".gitignore" />
-    <Content Include="Dockerfile.txt" />
+    <Content Include="Dockerfile" />
     <Content Include="frontend\catalog.html" />
     <Content Include="frontend\contacts.html" />
     <Content Include="frontend\cover-leisure.svg" />
