@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Прохождение опроса">
+    <title>Опрос — Статопрос</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container site-header__inner">
+            <a class="logo" href="index.html">
+                <img src="logo.svg" alt="Статопрос — сервис опросов" width="190" height="40">
+            </a>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a class="nav__link" href="index.html">Главная</a></li>
+                    <li><a class="nav__link" href="catalog.html">Опросы</a></li>
+                    <li><a class="nav__link" href="survey.html" aria-current="page">Пример опроса</a></li>
+                    <li><a class="nav__link" href="create.html">Создать опрос</a></li>
+                    <li><a class="nav__link" href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main">
+        <div class="container">
+            <article>
+                <h1 id="survey-title">Загрузка...</h1>
+
+                <div class="survey">
+                    <div>
+                        <div class="survey__cover">
+                            <img id="survey-cover" src="cover-study.svg" alt="Обложка рубрики" width="640" height="360">
+                        </div>
+                        <h2>Об опросе</h2>
+                        <p id="survey-description">Загрузка описания...</p>
+                        <dl class="facts">
+                            <dt>Автор</dt>
+                            <dd id="survey-author">...</dd>
+                        </dl>
+                    </div>
+
+                    <div>
+                        <!-- Форма с вопросами будет загружена через JS -->
+                        <form class="panel" id="survey-form" action="#" method="get" onsubmit="event.preventDefault(); alert('Голос учтен! (В разработке)');">
+                            <div id="questions-container">
+                                <p>Загрузка вопросов...</p>
+                            </div>
+                            <button class="btn" type="submit" style="margin-top: 1rem;">Проголосовать</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container site-footer__inner">
+            <p>© 2026 «Статопрос».</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+    // Опросын ID-г URL-аас авах (жишээ нь: survey.html?id=1)
+    document.addEventListener('DOMContentLoaded', async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const surveyId = urlParams.get('id');
+
+        if (!surveyId) {
+            document.getElementById('survey-title').textContent = 'Опрос не выбран';
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/api/surveys/${surveyId}`);
+            if (!response.ok) throw new Error('Опрос не найден');
+            const survey = await response.json();
+
+            // Үндсэн мэдээллийг харуулах
+            document.getElementById('survey-title').textContent = survey.title;
+            document.getElementById('survey-description').textContent = survey.description;
+            document.getElementById('survey-author').textContent = `ID ${survey.author_id}`;
+
+            // Асуултуудыг динамикаар үүсгэх
+            const container = document.getElementById('questions-container');
+            container.innerHTML = ''; // Хуучин контентыг арилгах
+
+            if (survey.questions && survey.questions.length > 0) {
+                survey.questions.forEach((q, index) => {
+                    const fieldset = document.createElement('fieldset');
+                    fieldset.innerHTML = `<legend>${q.text}</legend>`;
+
+                    q.options.forEach(opt => {
+                        const label = document.createElement('label');
+                        label.className = 'choice';
+                        label.innerHTML = `<input type="radio" name="question_${q.id}" value="${opt.id}" required> ${opt.text}`;
+                        fieldset.appendChild(label);
+                    });
+
+                    container.appendChild(fieldset);
+                });
+            } else {
+                container.innerHTML = '<p>В этом опросе пока нет вопросов.</p>';
+            }
+
+        } catch (error) {
+            document.getElementById('survey-title').textContent = 'Ошибка загрузки';
+            document.getElementById('survey-description').textContent = 'Опрос не найден в базе данных.';
+        }
+    });
+    </script>
+</body>
+</html>

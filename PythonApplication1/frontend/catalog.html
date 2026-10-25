@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Каталог опросов: ищите по названию, фильтруйте по рубрике и сортируйте.">
+    <title>Все опросы — Статопрос</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container site-header__inner">
+            <a class="logo" href="index.html">
+                <img src="logo.svg" alt="Статопрос — сервис опросов" width="190" height="40">
+            </a>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a class="nav__link" href="index.html">Главная</a></li>
+                    <li><a class="nav__link" href="catalog.html" aria-current="page">Опросы</a></li>
+                    <li><a class="nav__link" href="survey.html">Пример опроса</a></li>
+                    <li><a class="nav__link" href="create.html">Создать опрос</a></li>
+                    <li><a class="nav__link" href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main">
+        <div class="container">
+            <h1>Все опросы</h1>
+            <p>Выберите опрос и оставьте свой ответ.</p>
+
+            <!-- Фильтры и поиск -->
+            <section class="panel">
+                <h2>Поиск и сортировка</h2>
+                <form class="form-grid" action="catalog.html" method="get">
+                    <div class="field">
+                        <label for="q">Название содержит</label>
+                        <input type="search" id="q" name="q" placeholder="Например, расписание">
+                    </div>
+                    <div class="field">
+                        <label for="category">Рубрика</label>
+                        <select id="category" name="category">
+                            <option value="">Все рубрики</option>
+                            <option value="study">Учёба</option>
+                            <option value="life">Быт</option>
+                            <option value="leisure">Досуг</option>
+                            <option value="tech">Технологии</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="sort">Сортировать</label>
+                        <select id="sort" name="sort">
+                            <option value="new">Сначала новые</option>
+                            <option value="popular">Сначала популярные</option>
+                            <option value="title">По названию</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <button class="btn" type="submit">Применить</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Список опросов (12 карточек) -->
+            <section>
+                <h2>Список опросов (12)</h2>
+                <ul class="cards">
+                    <li>
+                        <article class="card card--study">
+                            <img src="cover-study.svg" alt="Обложка рубрики «Учёба»" width="640" height="360">
+                            <div class="card__body">
+                                <span class="tag tag--study">Учёба</span>
+                                <h3 class="card__title"><a href="survey.html?id=1">Любимый формат обучения</a></h3>
+                                <p>Видеолекции, очные занятия или практика? Выясняем, как студентам учиться удобнее.</p>
+                            </div>
+                            <footer class="card__meta"><span>Ответов: 250</span><time datetime="2026-10-12">12.10.2026</time></footer>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card card--life">
+                            <img src="cover-life.svg" alt="Обложка рубрики «Быт»" width="640" height="360">
+                            <div class="card__body">
+                                <span class="tag tag--life">Быт</span>
+                                <h3 class="card__title"><a href="survey.html?id=2">Что улучшить в столовой</a></h3>
+                                <p>Меню, очереди, цены или время работы: голосуем за главное изменение.</p>
+                            </div>
+                            <footer class="card__meta"><span>Ответов: 312</span><time datetime="2026-10-09">09.10.2026</time></footer>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card card--life">
+                            <img src="cover-life.svg" alt="Обложка рубрики «Быт»" width="640" height="360">
+                            <div class="card__body">
+                                <span class="tag tag--life">Быт</span>
+                                <h3 class="card__title"><a href="survey.html?id=3">Как вы добираетесь до учёбы</a></h3>
+                                <p>Метро, автобус, велосипед или пешком: собираем статистику маршрутов.</p>
+                            </div>
+                            <footer class="card__meta"><span>Ответов: 187</span><time datetime="2026-10-05">05.10.2026</time></footer>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card card--tech">
+                            <img src="cover-tech.svg" alt="Обложка рубрики «Технологии»" width="640" height="360">
+                            <div class="card__body">
+                                <span class="tag tag--tech">Технологии</span>
+                                <h3 class="card__title"><a href="survey.html?id=4">Первый язык программирования</a></h3>
+                                <p>Python, JavaScript или что-то другое? Что посоветуют начинающим.</p>
+                            </div>
+                            <footer class="card__meta"><span>Ответов: 421</span><time datetime="2026-10-02">02.10.2026</time></footer>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card card--leisure">
+                            <img src="cover-leisure.svg" alt="Обложка рубрики «Досуг»" width="640" height="360">
+                            <div class="card__body">
+                                <span class="tag tag--leisure">Досуг</span>
+                                <h3 class="card__title"><a href="survey.html?id=5">Музыка во время учёбы</a></h3>
+                                <p>Помогает или отвлекает? Расскажите, что слушаете за конспектами.</p>
+                            </div>
+                            <footer class="card__meta"><span>Ответов: 154</span><time datetime="2026-09-28">28.09.2026</time></footer>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card card--leisure">
+                            <img src="cover-leisure.svg" alt="Обложка рубрики «Досуг»" width="640" height="360">
+                            <div class="card__body">
+                                <span class="tag tag--leisure">Досуг</span>
+                                <h3 class="card__title"><a href="survey.html?id=6">Тема студенческого вечера</a></h3>
+                                <p>Выбираем тематику ближайшего мероприятия кафедры.</p>
+                            </div>
+                            <footer class="card__meta"><span>Ответов: 203</span><time datetime="2026-09-25">25.09.2026</time></footer>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card card--life">
+                            <img src="cover-life.svg" alt="Обложка рубрики «Быт»" width="640" height="360">
+                            <div class="card__body">
+                                <span class="tag tag--life">Быт</span>
+                                <h3 class="card__title"><a href="survey.html?id=7">Режим сна студента</a></h3>
+                                <p>Во сколько вы ложитесь и хватает ли вам сна перед парами.</p>
+                            </div>
+                            <footer class="card__meta"><span>Ответов: 276</span><time datetime="2026-09-21">21.09.2026</time></footer>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card card--study">
+                            <img src="cover-study.svg" alt="Обложка рубрики «Учёба»" width="640" height="360">
+                            <div class="card__body">
+                                <span class="tag tag--study">Учёба</span>
+                                <h3 class="card__title"><a href="survey.html?id=8">Онлайн или очные лекции</a></h3>
+                                <p>Сравниваем удобство форматов и собираем пожелания к расписанию.</p>
+                            </div>
+                            <footer class="card__meta"><span>Ответов: 389</span><time datetime="2026-09-18">18.09.2026</time></footer>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card card--leisure">
+                            <img src="cover-leisure.svg" alt="Обложка рубрики «Досуг»" width="640" height="360">
+                            <div class="card__body">
+                                <span class="tag tag--leisure">Досуг</span>
+                                <h3 class="card__title"><a href="survey.html?id=9">Любимое время года</a></h3>
+                                <p>Простой опрос для знакомства: какое время года нравится больше всего.</p>
+                            </div>
+                            <footer class="card__meta"><span>Ответов: 98</span><time datetime="2026-09-14">14.09.2026</time></footer>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card card--study">
+                            <img src="cover-study.svg" alt="Обложка рубрики «Учёба»" width="640" height="360">
+                            <div class="card__body">
+                                <span class="tag tag--study">Учёба</span>
+                                <h3 class="card__title"><a href="survey.html?id=10">Удобно ли расписание</a></h3>
+                                <p>Окна между парами, ранние занятия и перегруженные дни.</p>
+                            </div>
+                            <footer class="card__meta"><span>Ответов: 235</span><time datetime="2026-09-10">10.09.2026</time></footer>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card card--leisure">
+                            <img src="cover-leisure.svg" alt="Обложка рубрики «Досуг»" width="640" height="360">
+                            <div class="card__body">
+                                <span class="tag tag--leisure">Досуг</span>
+                                <h3 class="card__title"><a href="survey.html?id=11">Спорт на кафедре</a></h3>
+                                <p>Какие секции и турниры вам было бы интересно посещать.</p>
+                            </div>
+                            <footer class="card__meta"><span>Ответов: 142</span><time datetime="2026-09-06">06.09.2026</time></footer>
+                        </article>
+                    </li>
+                    <li>
+                        <article class="card card--leisure">
+                            <img src="cover-leisure.svg" alt="Обложка рубрики «Досуг»" width="640" height="360">
+                            <div class="card__body">
+                                <span class="tag tag--leisure">Досуг</span>
+                                <h3 class="card__title"><a href="survey.html?id=12">Читаете ли вы книги</a></h3>
+                                <p>Сколько книг в месяц читают студенты и какие жанры любят.</p>
+                            </div>
+                            <footer class="card__meta"><span>Ответов: 119</span><time datetime="2026-09-02">02.09.2026</time></footer>
+                        </article>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container site-footer__inner">
+            <p>© 2026 «Статопрос».</p>
+        </div>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>

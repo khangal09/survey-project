@@ -1,0 +1,529 @@
+/* 1. СБРОС СТИЛЕЙ И ОБЩИЕ НАСТРОЙКИ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background: #f4f6fb;
+    color: #1e1b4b;
+    line-height: 1.6;
+}
+
+.container {
+    width: min(1120px, 100% - 2rem);
+    margin-inline: auto;
+}
+
+/* 2. ШАПКА САЙТА И НАВИГАЦИЯ */
+.site-header {
+    background: #fff;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+    border-bottom: 3px solid #4f46e5;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.site-header__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    flex-wrap: wrap;
+}
+
+.logo img {
+    width: 190px;
+    height: 40px;
+}
+
+.nav__list {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+}
+
+.nav__link {
+    text-decoration: none;
+    color: #4b5563;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    transition: 0.3s;
+}
+
+    .nav__link:hover {
+        background: #f4f6fb;
+        color: #4f46e5;
+    }
+
+    .nav__link[aria-current="page"] {
+        background: #4f46e5;
+        color: white;
+        box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
+    }
+
+/* 3. ГЛАВНЫЙ ЭКРАН И КНОПКИ */
+main {
+    padding: 3rem 0;
+}
+
+.hero {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+    padding: 4rem 3rem;
+    border-radius: 20px;
+    margin-bottom: 3rem;
+    box-shadow: 0 10px 30px rgba(79, 70, 229, 0.2);
+}
+
+    .hero h1 {
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+    }
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 2rem;
+    background: #4f46e5;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 10px;
+    border: 2px solid #4f46e5;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 1rem;
+}
+
+    .btn:hover {
+        background: #4338ca;
+        border-color: #4338ca;
+        transform: translateY(-2px);
+    }
+
+.btn--ghost {
+    background: transparent;
+    color: #4f46e5;
+    border: 2px solid #4f46e5;
+    margin-left: 10px;
+}
+
+    .btn--ghost:hover {
+        background: #4f46e5;
+        color: white;
+    }
+
+.hero .btn {
+    background: #fff;
+    color: #4f46e5;
+    border-color: #fff;
+}
+
+.hero .btn--ghost {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.5);
+}
+
+/* 4. КАРТОЧКИ ОПРОСОВ */
+.steps {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+    .steps li {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 14px;
+        border: 1px solid #eef0fb;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    }
+
+        .steps li strong {
+            display: block;
+            color: #4f46e5;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    list-style: none;
+    padding: 0;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+    border: 1px solid #eef0fb;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        display: block;
+    }
+
+.card__body {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.card__title a {
+    text-decoration: none;
+    color: #1e1b4b;
+    display: block;
+    margin: 0.8rem 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+    .card__title a:hover {
+        color: #4f46e5;
+    }
+
+.card__body p {
+    color: #6b7280;
+}
+
+.card__meta {
+    padding: 1rem 1.5rem;
+    background: #f8fafc;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #6b7280;
+    border-top: 1px solid #eef0fb;
+}
+
+.tag {
+    background: #e0e7ff;
+    color: #4f46e5;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.tag--life {
+    background: #cffafe;
+    color: #0e7490;
+}
+
+.tag--leisure {
+    background: #fce7f3;
+    color: #be185d;
+}
+
+.tag--tech {
+    background: #d1fae5;
+    color: #047857;
+}
+
+/* 5. ФОРМЫ И СООБЩЕНИЯ ОБ ОШИБКАХ */
+.panel {
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    border: 1px solid #eef0fb;
+    margin-bottom: 2rem;
+}
+
+    .panel h2 {
+        margin-bottom: 1.5rem;
+        color: #1e1b4b;
+        font-size: 1.5rem;
+    }
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    align-items: end;
+}
+
+.field {
+    margin-bottom: 1.5rem;
+}
+
+    .field label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #4b5563;
+        font-size: 0.95rem;
+    }
+
+input[type="text"], input[type="email"], input[type="search"], input[type="date"], textarea, select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    color: #1e1b4b;
+    transition: 0.2s;
+    background-color: #f9fafb;
+}
+
+    input:focus, textarea:focus, select:focus {
+        outline: none;
+        border-color: #4f46e5;
+        background-color: #fff;
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    }
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+fieldset {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    background-color: #f9fafb;
+}
+
+    fieldset .field {
+        margin-bottom: 1rem;
+    }
+
+legend {
+    font-weight: 700;
+    color: #4f46e5;
+    padding: 0 10px;
+    background: #fff;
+    border-radius: 10px;
+    font-size: 1.1rem;
+}
+
+.error-input {
+    border-color: #ef4444 !important;
+    background-color: #fef2f2 !important;
+}
+
+.error-text {
+    color: #ef4444;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    margin-bottom: 0.5rem;
+    display: block;
+    font-weight: 500;
+}
+
+/* 6. ТАБЛИЦЫ */
+.table-wrap {
+    overflow-x: auto;
+    margin-top: 1rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+caption {
+    text-align: left;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #1e1b4b;
+}
+
+th, td {
+    padding: 1.2rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eef0fb;
+}
+
+th {
+    background-color: #f4f6fb;
+    font-weight: 700;
+    color: #4f46e5;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover td {
+    background-color: #f9fafb;
+}
+
+/* 7. КОНТАКТЫ, ПОДВАЛ, СТРАНИЦА ОПРОСА */
+.two-col {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 800px) {
+    .two-col {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+    .contact-list li {
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px dashed #e5e7eb;
+    }
+
+.slogan {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4f46e5;
+    font-style: italic;
+    border-left: 4px solid #4f46e5;
+    padding-left: 1rem;
+    margin-top: 2rem;
+}
+
+.site-footer {
+    background: #1e1b4b;
+    color: #9ca3af;
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 4rem;
+    border-top: 4px solid #4f46e5;
+}
+
+.survey {
+    display: grid;
+    gap: 2rem;
+}
+
+.survey__cover img {
+    border-radius: 16px;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.facts {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.8rem 1rem;
+    margin: 1.5rem 0;
+}
+
+    .facts dt {
+        color: #6b7280;
+        font-weight: 600;
+    }
+
+    .facts dd {
+        margin: 0;
+        font-weight: 500;
+    }
+
+.choice {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+    .choice:hover {
+        background: #f4f6fb;
+    }
+
+    .choice input {
+        width: 20px;
+        height: 20px;
+        accent-color: #4f46e5;
+    }
+
+.result {
+    margin-bottom: 1.5rem;
+}
+
+.result__head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #4b5563;
+}
+
+progress {
+    width: 100%;
+    height: 12px;
+    border-radius: 10px;
+    appearance: none;
+    border: none;
+    background: #e5e7eb;
+}
+
+    progress::-webkit-progress-bar {
+        background: #e5e7eb;
+        border-radius: 10px;
+    }
+
+    progress::-webkit-progress-value {
+        background: #4f46e5;
+        border-radius: 10px;
+    }
+
+.hint {
+    color: #6b7280;
+    font-style: italic;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+@media (min-width: 800px) {
+    .survey {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+    }
+}

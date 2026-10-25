@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Создайте новый опрос и посмотрите сводку по последним опросам.">
+    <title>Создать опрос — Статопрос</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container site-header__inner">
+            <a class="logo" href="index.html">
+                <img src="logo.svg" alt="Статопрос — сервис опросов" width="190" height="40">
+            </a>
+            <nav class="nav">
+                <ul class="nav__list">
+                    <li><a class="nav__link" href="index.html">Главная</a></li>
+                    <li><a class="nav__link" href="catalog.html">Опросы</a></li>
+                    <li><a class="nav__link" href="survey.html">Пример опроса</a></li>
+                    <li><a class="nav__link" href="create.html" aria-current="page">Создать опрос</a></li>
+                    <li><a class="nav__link" href="contacts.html">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main">
+        <div class="container">
+            <h1>Создать опрос</h1>
+            <p>Заполните форму, и опрос появится в списке.</p>
+
+            <div class="two-col">
+                <!-- Форма создания -->
+                <section class="panel">
+                    <h2>Новый опрос</h2>
+                    <form action="create.html" method="get">
+                        <div class="field">
+                            <label for="title">Вопрос</label>
+                            <input type="text" id="title" name="title" placeholder="Например: Как вы чаще всего добираетесь до университета?" required>
+                        </div>
+                        <div class="field">
+                            <label for="description">Описание</label>
+                            <textarea id="description" name="description" placeholder="Коротко объясните, зачем вы проводите этот опрос" required></textarea>
+                        </div>
+                        <div class="field">
+                            <label for="new-category">Рубрика</label>
+                            <select id="new-category" name="category">
+                                <option value="study">Учёба</option>
+                                <option value="life">Быт</option>
+                                <option value="leisure">Досуг</option>
+                                <option value="tech">Технологии</option>
+                            </select>
+                        </div>
+                        <fieldset>
+                            <legend>Варианты ответа</legend>
+                            <div class="field"><label for="opt1">Вариант 1</label><input type="text" id="opt1" name="option1" required></div>
+                            <div class="field"><label for="opt2">Вариант 2</label><input type="text" id="opt2" name="option2" required></div>
+                            <div class="field"><label for="opt3">Вариант 3 (необязательно)</label><input type="text" id="opt3" name="option3"></div>
+                            <div class="field"><label for="opt4">Вариант 4 (необязательно)</label><input type="text" id="opt4" name="option4"></div>
+                        </fieldset>
+                        <div class="field">
+                            <label for="end-date">Дата окончания</label>
+                            <input type="date" id="end-date" name="end_date">
+                        </div>
+                        <button class="btn" type="submit">Опубликовать опрос</button>
+                    </form>
+                </section>
+
+                <!-- Сводка -->
+                <aside>
+                    <section class="panel">
+                        <h2>Сводка за 30 дней</h2>
+                        <dl class="stats">
+                            <div><dt>Опросов</dt><dd>5</dd></div>
+                            <div><dt>Ответов</dt><dd>1 324</dd></div>
+                            <div><dt>В среднем</dt><dd>265</dd></div>
+                        </dl>
+                        <div class="table-wrap">
+                            <table>
+                                <caption>Последние опросы</caption>
+                                <thead>
+                                    <tr><th>Название</th><th>Рубрика</th><th>Дата</th><th>Ответов</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><a href="survey.html?id=1">Любимый формат обучения</a></td><td>Учёба</td><td>12.10.2026</td><td>250</td></tr>
+                                    <tr><td><a href="survey.html?id=2">Что улучшить в столовой</a></td><td>Быт</td><td>09.10.2026</td><td>312</td></tr>
+                                    <tr><td><a href="survey.html?id=3">Как вы добираетесь до учёбы</a></td><td>Быт</td><td>05.10.2026</td><td>187</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container site-footer__inner">
+            <p>© 2026 «Статопрос».</p>
+        </div>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>
