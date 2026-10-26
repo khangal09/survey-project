@@ -107,5 +107,5 @@ def create_survey(survey: SurveyCreate):
     conn.close()
     return {"message": "Опрос создан"}
 
-# --- РАЗДАЧА СТАТИЧЕСКИХ ФАЙЛОВ (ФРОНТЕНД) ---
+# --- РАЗДАЧА СТАТИЧЕСКИХ ФАЙЛОВ (ФРОНТЕНД) ---sss
 app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
