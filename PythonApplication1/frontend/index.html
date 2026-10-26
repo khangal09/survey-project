@@ -1,76 +1,241 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Статопрос — сервис, где можно создать опрос, собрать ответы и увидеть статистику.">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Статопрос — сервис для создания опросов, сбора ответов и просмотра результатов в удобном формате.">
+
+    <meta name="theme-color" content="#f4f7fb">
+
     <title>Главная — Статопрос</title>
+
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
+
+    <script src="main.js" defer></script>
 </head>
+
 <body>
+    <a class="skip-link" href="#main-content">
+        Перейти к основному содержимому
+    </a>
+
     <header class="site-header">
-        <div class="container site-header__inner">
-            <a class="logo" href="index.html">
-                <img src="logo.svg" alt="Статопрос — сервис опросов" width="190" height="40">
+        <div class="container">
+            <a class="site-logo"
+               href="index.html"
+               aria-label="Статопрос — главная страница">
+                <span aria-hidden="true">📊</span>
+                <span>Статопрос</span>
             </a>
-            <nav class="nav">
+
+            <nav class="site-nav" aria-label="Основная навигация">
                 <ul class="nav__list">
-                    <li><a class="nav__link" href="index.html" aria-current="page">Главная</a></li>
-                    <li><a class="nav__link" href="catalog.html">Опросы</a></li>
-                    <li><a class="nav__link" href="survey.html">Пример опроса</a></li>
-                    <li><a class="nav__link" href="create.html">Создать опрос</a></li>
-                    <li><a class="nav__link" href="contacts.html">Контакты</a></li>
+                    <li>
+                        <a class="nav__link"
+                           href="index.html"
+                           aria-current="page">
+                            Главная
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="nav__link" href="catalog.html">
+                            Каталог
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="nav__link" href="survey.html">
+                            Опросы
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="nav__link" href="create.html">
+                            Создать опрос
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="nav__link" href="contacts.html">
+                            Контакты
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main id="main">
+    <main id="main-content" class="main-content">
         <div class="container">
-            <!-- Главный баннер -->
-            <section class="hero">
-                <h1>Статопрос: создавайте опросы и смотрите статистику</h1>
-                <p>Задайте вопрос аудитории, получите ответы и сразу увидите, как распределились голоса.</p>
+
+            <!-- Главный экран -->
+            <section class="hero" aria-labelledby="hero-title">
+                <h1 id="hero-title">
+                    Статопрос — создавайте опросы и изучайте результаты
+                </h1>
+
+                <p>
+                    Создавайте опросы, собирайте мнения и анализируйте
+                    ответы в одном удобном сервисе. Простой интерфейс
+                    помогает организовать работу и быстро найти нужную
+                    информацию.
+                </p>
+
                 <div class="btn-row">
-                    <a class="btn" href="create.html">Создать опрос</a>
-                    <a class="btn btn--ghost" href="catalog.html">Смотреть опросы</a>
+                    <a class="btn" href="create.html">
+                        Создать опрос
+                    </a>
+
+                    <a class="btn btn--secondary" href="catalog.html">
+                        Посмотреть каталог
+                    </a>
                 </div>
             </section>
 
-            <!-- Виджет погоды (загружается через JS) -->
-            <div id="weather-widget" class="panel" style="padding: 1rem 1.5rem; margin-bottom: 2rem; border-left: 5px solid #4f46e5; display: flex; align-items: center;">
-                <span style="margin-right: 10px; font-size: 1.5rem;">🌤️</span>
-                <span>Загрузка данных о погоде...</span>
-            </div>
+            <!-- Информация о погоде -->
+            <section class="content-section"
+                     aria-labelledby="weather-title">
+                <h2 id="weather-title" class="section-heading">
+                    Погода
+                </h2>
 
-            <!-- Шаги работы -->
-            <section>
-                <h2>Как это работает</h2>
+                <div id="weather-widget"
+                     class="panel weather-widget"
+                     aria-live="polite"
+                     aria-atomic="true">
+                    <span class="weather-widget__icon"
+                          aria-hidden="true">🌤️</span>
+
+                    <p class="weather-widget__text">
+                        Загрузка данных о погоде...
+                    </p>
+                </div>
+            </section>
+
+            <!-- Как работает сервис -->
+            <section class="content-section"
+                     aria-labelledby="steps-title">
+                <h2 id="steps-title" class="section-heading">
+                    Как это работает
+                </h2>
+
+                <p class="section-description">
+                    Начните работу с сервисом всего за несколько шагов.
+                </p>
+
                 <ol class="steps">
-                    <li><strong>Создайте опрос.</strong> Напишите вопрос и добавьте варианты ответа.</li>
-                    <li><strong>Поделитесь ссылкой.</strong> Участники отвечают за несколько секунд.</li>
-                    <li><strong>Изучите результаты.</strong> Доли голосов показываются на странице опроса.</li>
+                    <li>
+                        <strong>Создайте опрос</strong>
+                        <p>
+                            Укажите название, добавьте вопросы и выберите
+                            подходящие варианты ответов.
+                        </p>
+                    </li>
+
+                    <li>
+                        <strong>Соберите ответы</strong>
+                        <p>
+                            Предложите участникам пройти опрос и выразить
+                            своё мнение.
+                        </p>
+                    </li>
+
+                    <li>
+                        <strong>Изучите результаты</strong>
+                        <p>
+                            Используйте собранные данные для анализа
+                            ответов и подготовки выводов.
+                        </p>
+                    </li>
                 </ol>
             </section>
 
-            <!-- Популярные опросы (загружаются из БД через JS) -->
-            <section>
-                <h2>Популярные опросы</h2>
-                <!-- Контейнер, куда JS будет вставлять карточки -->
-                <ul class="survey-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; list-style: none; padding: 0;">
-                    <!-- Здесь будут карточки из БД -->
+            <!-- Популярные опросы -->
+            <section class="content-section"
+                     aria-labelledby="popular-title">
+                <h2 id="popular-title" class="section-heading">
+                    Популярные опросы
+                </h2>
+
+                <p class="section-description">
+                    Ознакомьтесь с доступными опросами и выберите
+                    интересующую вас тему.
+                </p>
+
+                <ul class="survey-grid"
+                    aria-label="Список популярных опросов"
+                    aria-live="polite">
+                    <li>
+                        <article class="card">
+                            <div class="card__body">
+                                <span class="tag tag--tech">
+                                    Технологии
+                                </span>
+
+                                <h3 class="card__title">
+                                    <a href="survey.html">
+                                        Технологии в повседневной жизни
+                                    </a>
+                                </h3>
+
+                                <p>
+                                    Узнайте, как современные технологии
+                                    влияют на учёбу, работу и отдых.
+                                </p>
+
+                                <a class="btn" href="survey.html">
+                                    Открыть опрос
+                                </a>
+                            </div>
+
+                            <div class="card__meta">
+                                <span>Пример опроса</span>
+                                <span>Доступен для просмотра</span>
+                            </div>
+                        </article>
+                    </li>
                 </ul>
             </section>
+
+            <!-- Призыв к действию -->
+            <section class="content-section panel"
+                     aria-labelledby="start-title">
+                <h2 id="start-title" class="section-heading">
+                    Готовы создать свой опрос?
+                </h2>
+
+                <p class="section-description">
+                    Подготовьте вопросы, выберите варианты ответов
+                    и начните собирать мнения участников.
+                </p>
+
+                <div class="btn-row">
+                    <a class="btn" href="create.html">
+                        Перейти к созданию
+                    </a>
+
+                    <a class="btn btn--secondary" href="contacts.html">
+                        Связаться с нами
+                    </a>
+                </div>
+            </section>
+
         </div>
     </main>
 
     <footer class="site-footer">
-        <div class="container site-footer__inner">
-            <p>© 2026 «Статопрос».</p>
+        <div class="container">
+            <p>
+                © 2026 «Статопрос». Учебный проект.
+            </p>
         </div>
     </footer>
-
-    <script src="main.js"></script>
 </body>
 </html>
