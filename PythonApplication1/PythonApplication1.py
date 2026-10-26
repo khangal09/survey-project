@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import sqlite3
 from passlib.context import CryptContext
@@ -65,26 +66,21 @@ def get_surveys():
     conn.close()
     return [{"id": s[0], "title": s[1], "description": s[2], "author_id": s[3]} for s in surveys]
 
-# ШИНЭ: Нэг опросыг ID-аар нь асуулт, сонголтуудтай нь авах
 @app.get("/api/surveys/{survey_id}")
 def get_survey_details(survey_id: int):
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    
-    # Опросын үндсэн мэдээлэл
     cursor.execute("SELECT id, title, description, author_id FROM surveys WHERE id = ?", (survey_id,))
     survey = cursor.fetchone()
     if not survey:
         conn.close()
         raise HTTPException(status_code=404, detail="Опрос не найден")
     
-    # Асуултууд
     cursor.execute("SELECT id, question_text FROM questions WHERE survey_id = ?", (survey_id,))
     questions_raw = cursor.fetchall()
     
     questions = []
     for q in questions_raw:
-        # Асуулт бүрийн сонголтууд
         cursor.execute("SELECT id, option_text FROM options WHERE question_id = ?", (q[0],))
         options_raw = cursor.fetchall()
         options = [{"id": o[0], "text": o[1]} for o in options_raw]
@@ -108,3 +104,6 @@ def create_survey(survey: SurveyCreate):
     conn.commit()
     conn.close()
     return {"message": "Опрос создан"}
+
+# --- СТАТИЧЕСКИЕ ФАЙЛЫ (ФРОНТЕНД) ---
+app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
