@@ -1,20 +1,19 @@
 /* ==========================================================
-   ПРОЕКТ: САЙТ ОПРОСОВ "СТАТОПРОС"
+   ПРОЕКТ: САЙТ ОПРОСОВ «СТАТОПРОС»
    ФАЙЛ: style.css
-   ВЕРСИЯ: 5.0 (Modern Blue-Gray Theme)
+   ТЕМА: BLUE-TEAL
    ========================================================== */
 
+/* 1. ДИЗАЙН-СИСТЕМА */
 :root {
-    /* Основные цвета */
-    --primary: #4f46e5;
-    --primary-hover: #4338ca;
-    --primary-dark: #3730a3;
-    --primary-soft: #e0e7ff;
-    --heading: #1e1b4b;
+    --primary: #0f766e;
+    --primary-hover: #0d625b;
+    --primary-dark: #115e59;
+    --primary-soft: #ccfbf1;
+    --heading: #16324f;
     --text: #334155;
     --muted: #64748b;
-    /* Новая цветовая схема фона */
-    --background: #f0f4f8; /* Мягкий голубовато-серый */
+    --background: #f0f4f8;
     --surface: #ffffff;
     --surface-secondary: #f8fafc;
     --border: #e2e8f0;
@@ -23,14 +22,12 @@
     --success-bg: #ecfdf5;
     --danger: #b91c1c;
     --danger-bg: #fef2f2;
-    /* Градиенты */
-    --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-    --gradient-hero: linear-gradient(135deg, #312e81 0%, #4f46e5 50%, #7c3aed 100%);
-    /* Тени и скругления */
+    --gradient-primary: linear-gradient(135deg, #0f766e 0%, #2563eb 100%);
+    --gradient-hero: linear-gradient(135deg, #164e63 0%, #0f766e 50%, #2563eb 100%);
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-primary: 0 4px 14px rgba(79, 70, 229, 0.3);
+    --shadow-primary: 0 4px 14px rgba(15, 118, 110, 0.22);
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
@@ -38,14 +35,14 @@
     --radius-pill: 999px;
     --container-width: 1160px;
     --header-height: 72px;
-    --focus-ring: 0 0 0 4px rgba(79, 70, 229, 0.15);
+    --focus-ring: 0 0 0 4px rgba(15, 118, 110, 0.15);
     --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ==========================================================
-   02. БАЗОВЫЕ СТИЛИ
-   ========================================================== */
-*, *::before, *::after {
+/* 2. БАЗОВЫЕ СТИЛИ */
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
@@ -61,7 +58,7 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+    font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
     font-size: 16px;
     line-height: 1.6;
     color: var(--text);
@@ -74,13 +71,17 @@ main {
     padding-block: 2rem;
 }
 
-img, svg {
+img,
+svg {
     display: block;
     max-width: 100%;
     height: auto;
 }
 
-button, input, textarea, select {
+button,
+input,
+textarea,
+select {
     font: inherit;
 }
 
@@ -98,7 +99,10 @@ a {
         color: var(--primary-dark);
     }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     margin-top: 0;
     color: var(--heading);
     font-weight: 800;
@@ -124,7 +128,7 @@ p {
 }
 
 ::selection {
-    color: #fff;
+    color: #ffffff;
     background: var(--primary);
 }
 
@@ -142,7 +146,7 @@ p {
     margin-inline: auto;
 }
 
-/* Настройка скроллбара */
+/* Полоса прокрутки */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -160,14 +164,31 @@ p {
         background: var(--muted);
     }
 
-/* ==========================================================
-   03. ШАПКА САЙТА
-   ========================================================== */
+/* 3. ССЫЛКА ДЛЯ ПЕРЕХОДА К СОДЕРЖИМОМУ */
+.skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100px;
+    z-index: 1000;
+    padding: 0.75rem 1.25rem;
+    background: var(--primary);
+    color: #ffffff;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: top var(--transition);
+}
+
+    .skip-link:focus {
+        top: 1rem;
+    }
+
+/* 4. ШАПКА САЙТА */
 .site-header {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.94);
     border-bottom: 1px solid var(--border);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -206,7 +227,7 @@ p {
     border-radius: var(--radius-pill);
     font-weight: 600;
     text-decoration: none;
-    transition: all var(--transition);
+    transition: background var(--transition), color var(--transition), transform var(--transition);
 }
 
     .nav__link:hover {
@@ -215,29 +236,27 @@ p {
     }
 
     .nav__link[aria-current="page"] {
-        color: #fff;
+        color: #ffffff;
         background: var(--primary);
         box-shadow: var(--shadow-primary);
     }
 
-/* ==========================================================
-   04. ГЛАВНЫЙ ЭКРАН (HERO)
-   ========================================================== */
+/* 5. ГЛАВНЫЙ ЭКРАН */
 .hero {
     position: relative;
     overflow: hidden;
     margin-bottom: 3rem;
     padding: clamp(2rem, 6vw, 4.5rem);
-    color: #fff;
+    color: #ffffff;
     background: var(--gradient-hero);
     border-radius: var(--radius-xl);
-    box-shadow: 0 20px 40px rgba(79, 70, 229, 0.2);
+    box-shadow: 0 20px 40px rgba(15, 118, 110, 0.18);
 }
 
     .hero h1 {
         max-width: 800px;
         margin-bottom: 1rem;
-        color: #fff;
+        color: #ffffff;
         font-size: clamp(2.2rem, 5vw, 3.5rem);
         font-weight: 900;
     }
@@ -245,35 +264,35 @@ p {
     .hero p {
         max-width: 700px;
         margin-bottom: 2rem;
-        color: rgba(255,255,255,0.9);
+        color: rgba(255, 255, 255, 0.92);
         font-size: clamp(1.05rem, 2vw, 1.25rem);
     }
 
     .hero .btn {
-        background: #fff;
         color: var(--primary-dark);
-        border: none;
+        background: #ffffff;
+        border-color: #ffffff;
     }
 
         .hero .btn:hover {
             background: var(--primary-soft);
+            border-color: var(--primary-soft);
             transform: translateY(-2px);
         }
 
     .hero .btn--ghost {
+        color: #ffffff;
         background: transparent;
-        color: #fff;
-        border: 2px solid rgba(255,255,255,0.5);
+        border: 2px solid rgba(255, 255, 255, 0.6);
     }
 
         .hero .btn--ghost:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: #fff;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #ffffff;
         }
 
-/* ==========================================================
-   05. КНОПКИ
-   ========================================================== */
+/* 6. КНОПКИ */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -281,18 +300,19 @@ p {
     gap: 0.5rem;
     min-height: 48px;
     padding: 0.75rem 1.5rem;
+    color: #ffffff;
     background: var(--primary);
-    color: #fff;
     border: 2px solid transparent;
     border-radius: var(--radius-md);
+    font-size: 1rem;
     font-weight: 700;
     text-decoration: none;
-    font-size: 1rem;
-    transition: all var(--transition);
     box-shadow: var(--shadow-sm);
+    transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
 }
 
     .btn:hover {
+        color: #ffffff;
         background: var(--primary-hover);
         transform: translateY(-2px);
         box-shadow: var(--shadow-primary);
@@ -303,15 +323,15 @@ p {
     }
 
 .btn--ghost {
-    background: transparent;
     color: var(--primary);
+    background: transparent;
     border: 2px solid var(--primary);
     box-shadow: none;
 }
 
     .btn--ghost:hover {
+        color: #ffffff;
         background: var(--primary);
-        color: #fff;
     }
 
 .btn-row {
@@ -320,12 +340,10 @@ p {
     gap: 1rem;
 }
 
-/* ==========================================================
-   06. КАРТОЧКИ И ШАГИ
-   ========================================================== */
+/* 7. КАРТОЧКИ И ШАГИ */
 .steps {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    grid-template-columns: repeat( auto-fit, minmax(min(100%, 250px), 1fr) );
     gap: 1.5rem;
     margin-bottom: 3rem;
     padding: 0;
@@ -354,9 +372,10 @@ p {
             font-weight: 800;
         }
 
-.cards {
+.cards,
+.survey-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    grid-template-columns: repeat( auto-fill, minmax(min(100%, 280px), 1fr) );
     gap: 1.5rem;
     margin: 0;
     padding: 0;
@@ -367,17 +386,18 @@ p {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    min-width: 0;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
-    transition: all var(--transition);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
 
     .card:hover {
-        transform: translateY(-6px);
+        transform: translateY(-5px);
         box-shadow: var(--shadow-lg);
-        border-color: var(--primary-soft);
+        border-color: #99f6e4;
     }
 
     .card img {
@@ -445,8 +465,8 @@ p {
 }
 
 .tag--leisure {
-    color: #9d174d;
-    background: #fce7f3;
+    color: #0e7490;
+    background: #cffafe;
 }
 
 .tag--tech {
@@ -454,9 +474,7 @@ p {
     background: #d1fae5;
 }
 
-/* ==========================================================
-   07. ФОРМЫ И ПАНЕЛИ
-   ========================================================== */
+/* 8. ФОРМЫ И ПАНЕЛИ */
 .panel {
     margin-bottom: 2rem;
     padding: clamp(1.5rem, 4vw, 2.5rem);
@@ -472,7 +490,7 @@ p {
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    grid-template-columns: repeat( auto-fit, minmax(min(100%, 220px), 1fr) );
     gap: 1.5rem;
 }
 
@@ -484,23 +502,32 @@ p {
         display: block;
         margin-bottom: 0.5rem;
         color: var(--text);
-        font-weight: 600;
         font-size: 0.95rem;
+        font-weight: 600;
     }
 
-input[type="text"], input[type="email"], input[type="search"], input[type="date"], input[type="number"], input[type="password"], textarea, select {
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="date"],
+input[type="number"],
+input[type="password"],
+textarea,
+select {
     width: 100%;
     min-height: 48px;
     padding: 0.75rem 1rem;
-    background: var(--surface-secondary);
     color: var(--heading);
-    border: 2px solid transparent;
+    background: var(--surface-secondary);
+    border: 2px solid var(--border);
     border-radius: var(--radius-md);
     font-size: 1rem;
-    transition: all var(--transition);
+    transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
 
-    input:focus, textarea:focus, select:focus {
+    input:focus,
+    textarea:focus,
+    select:focus {
         outline: none;
         background: var(--surface);
         border-color: var(--primary);
@@ -510,6 +537,11 @@ input[type="text"], input[type="email"], input[type="search"], input[type="date"
 textarea {
     min-height: 120px;
     resize: vertical;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color: var(--primary);
 }
 
 fieldset {
@@ -523,11 +555,11 @@ fieldset {
 legend {
     padding-inline: 0.5rem;
     color: var(--primary-dark);
-    font-weight: 700;
     font-size: 1.1rem;
+    font-weight: 700;
 }
 
-/* Ошибки */
+/* Ошибки в формах */
 .error-input {
     background: var(--danger-bg) !important;
     border-color: var(--danger) !important;
@@ -541,9 +573,7 @@ legend {
     font-weight: 600;
 }
 
-/* ==========================================================
-   08. ТАБЛИЦЫ
-   ========================================================== */
+/* 9. ТАБЛИЦЫ */
 .table-wrap {
     width: 100%;
     margin-top: 1.5rem;
@@ -560,16 +590,17 @@ table {
     text-align: left;
 }
 
-th, td {
+th,
+td {
     padding: 1rem;
     border-bottom: 1px solid var(--border);
 }
 
 th {
-    background: var(--surface-secondary);
     color: var(--primary-dark);
-    font-weight: 700;
+    background: var(--surface-secondary);
     font-size: 0.9rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -579,12 +610,10 @@ tbody tr:last-child td {
 }
 
 tbody tr:hover {
-    background: var(--primary-soft);
+    background: #f0fdfa;
 }
 
-/* ==========================================================
-   09. СТРАНИЦА ОПРОСА
-   ========================================================== */
+/* 10. СТРАНИЦА ОПРОСА */
 .survey {
     display: grid;
     grid-template-columns: 1fr;
@@ -627,12 +656,12 @@ tbody tr:hover {
     border: 1px solid transparent;
     border-radius: var(--radius-md);
     cursor: pointer;
-    transition: all var(--transition);
+    transition: background var(--transition), border-color var(--transition);
 }
 
     .choice:hover {
         background: var(--primary-soft);
-        border-color: var(--border);
+        border-color: #99f6e4;
     }
 
     .choice input {
@@ -649,6 +678,7 @@ tbody tr:hover {
 .result__head {
     display: flex;
     justify-content: space-between;
+    gap: 1rem;
     margin-bottom: 0.5rem;
     font-weight: 600;
 }
@@ -656,11 +686,11 @@ tbody tr:hover {
 progress {
     width: 100%;
     height: 14px;
+    overflow: hidden;
+    background: var(--border);
+    border: none;
     border-radius: var(--radius-pill);
     appearance: none;
-    border: none;
-    background: var(--border);
-    overflow: hidden;
 }
 
     progress::-webkit-progress-bar {
@@ -677,9 +707,21 @@ progress {
         border-radius: var(--radius-pill);
     }
 
-/* ==========================================================
-   10. КОНТАКТЫ И ПОДВАЛ
-   ========================================================== */
+/* 11. ПОГОДНЫЙ ВИДЖЕТ */
+#weather-widget {
+    margin-block: 1.5rem;
+}
+
+.weather-widget,
+.weather-card {
+    padding: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+/* 12. КОНТАКТЫ И ПОДВАЛ */
 .two-col {
     display: grid;
     grid-template-columns: 1fr;
@@ -722,15 +764,18 @@ progress {
 }
 
     .site-footer a {
-        color: #fff;
+        color: #ffffff;
     }
 
-/* ==========================================================
-   11. АДАПТИВНОСТЬ И ТЕМНАЯ ТЕМА
-   ========================================================== */
+        .site-footer a:hover {
+            color: #99f6e4;
+        }
+
+/* 13. АДАПТИВНОСТЬ */
 @media (min-width: 768px) {
-    .two-col, .survey {
-        grid-template-columns: repeat(2, 1fr);
+    .two-col,
+    .survey {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
@@ -743,6 +788,10 @@ progress {
 
     .nav__list {
         justify-content: center;
+    }
+
+    .nav__link {
+        padding-inline: 0.75rem;
     }
 
     .hero {
@@ -758,40 +807,87 @@ progress {
     .container {
         width: calc(100% - 1.5rem);
     }
+
+    .panel {
+        padding: 1.25rem;
+    }
+
+    .card__body {
+        padding: 1.25rem;
+    }
 }
 
-/* Уменьшение анимации для доступности */
+@media (max-width: 420px) {
+    .nav__list {
+        gap: 0.25rem;
+    }
+
+    .nav__link {
+        min-height: 38px;
+        padding: 0.4rem 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .facts {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+    }
+
+        .facts dd {
+            margin-bottom: 0.75rem;
+        }
+}
+
+/* 14. ДОСТУПНОСТЬ */
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
 }
 
-/* Печать */
+/* 15. ПЕЧАТЬ */
 @media print {
-    .site-header, .site-footer, .btn {
+    .site-header,
+    .site-footer,
+    .btn,
+    .skip-link {
         display: none !important;
     }
 
     body {
-        background: #fff;
-        color: #000;
+        color: #000000;
+        background: #ffffff;
     }
 
     .hero {
-        background: #fff;
-        color: #000;
-        border: 1px solid #ccc;
+        color: #000000;
+        background: #ffffff;
+        border: 1px solid #cccccc;
+        box-shadow: none;
     }
 
-        .hero h1, .hero p {
-            color: #000;
+        .hero h1,
+        .hero p {
+            color: #000000;
         }
 
-    .panel, .card, .steps li {
-        border: 1px solid #ccc;
+    .panel,
+    .card,
+    .steps li {
+        border: 1px solid #cccccc;
         box-shadow: none;
+    }
+
+    a {
+        color: #000000;
+        text-decoration: underline;
     }
 }
