@@ -2,8 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Прохождение опроса">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Опрос — Статопрос</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
@@ -66,53 +65,54 @@
 
     <script src="main.js"></script>
     <script>
-    // Опросын ID-г URL-аас авах (жишээ нь: survey.html?id=1)
-    document.addEventListener('DOMContentLoaded', async () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const surveyId = urlParams.get('id');
+                // Опросын ID-г URL-аас авах (жишээ нь: survey.html?id=1)
+                document.addEventListener('DOMContentLoaded', async () => {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const surveyId = urlParams.get('id');
 
-        if (!surveyId) {
-            document.getElementById('survey-title').textContent = 'Опрос не выбран';
-            return;
-        }
+                    if (!surveyId) {
+                        document.getElementById('survey-title').textContent = 'Опрос не выбран';
+                        document.getElementById('survey-description').textContent = 'Пожалуйста, выберите опрос из каталога.';
+                        return;
+                    }
 
-        try {
-            const response = await fetch(`http://127.0.0.1:8000/api/surveys/${surveyId}`);
-            if (!response.ok) throw new Error('Опрос не найден');
-            const survey = await response.json();
+                    try {
+                        const response = await fetch(`/api/surveys/${surveyId}`);
+                        if (!response.ok) throw new Error('Опрос не найден');
+                        const survey = await response.json();
 
-            // Үндсэн мэдээллийг харуулах
-            document.getElementById('survey-title').textContent = survey.title;
-            document.getElementById('survey-description').textContent = survey.description;
-            document.getElementById('survey-author').textContent = `ID ${survey.author_id}`;
+                        // Үндсэн мэдээллийг харуулах
+                        document.getElementById('survey-title').textContent = survey.title;
+                        document.getElementById('survey-description').textContent = survey.description;
+                        document.getElementById('survey-author').textContent = `ID ${survey.author_id}`;
 
-            // Асуултуудыг динамикаар үүсгэх
-            const container = document.getElementById('questions-container');
-            container.innerHTML = ''; // Хуучин контентыг арилгах
+                        // Асуултуудыг динамикаар үүсгэх
+                        const container = document.getElementById('questions-container');
+                        container.innerHTML = '';
 
-            if (survey.questions && survey.questions.length > 0) {
-                survey.questions.forEach((q, index) => {
-                    const fieldset = document.createElement('fieldset');
-                    fieldset.innerHTML = `<legend>${q.text}</legend>`;
+                        if (survey.questions && survey.questions.length > 0) {
+                            survey.questions.forEach((q) => {
+                                const fieldset = document.createElement('fieldset');
+                                fieldset.innerHTML = `<legend>${q.text}</legend>`;
 
-                    q.options.forEach(opt => {
-                        const label = document.createElement('label');
-                        label.className = 'choice';
-                        label.innerHTML = `<input type="radio" name="question_${q.id}" value="${opt.id}" required> ${opt.text}`;
-                        fieldset.appendChild(label);
-                    });
+                                q.options.forEach(opt => {
+                                    const label = document.createElement('label');
+                                    label.className = 'choice';
+                                    label.innerHTML = `<input type="radio" name="question_${q.id}" value="${opt.id}" required> ${opt.text}`;
+                                    fieldset.appendChild(label);
+                                });
 
-                    container.appendChild(fieldset);
+                                container.appendChild(fieldset);
+                            });
+                        } else {
+                            container.innerHTML = '<p>В этом опросе пока нет вопросов.</p>';
+                        }
+
+                    } catch (error) {
+                        document.getElementById('survey-title').textContent = 'Ошибка загрузки';
+                        document.getElementById('survey-description').textContent = 'Опрос не найден в базе данных.';
+                    }
                 });
-            } else {
-                container.innerHTML = '<p>В этом опросе пока нет вопросов.</p>';
-            }
-
-        } catch (error) {
-            document.getElementById('survey-title').textContent = 'Ошибка загрузки';
-            document.getElementById('survey-description').textContent = 'Опрос не найден в базе данных.';
-        }
-    });
     </script>
 </body>
 </html>
