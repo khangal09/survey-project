@@ -32,7 +32,60 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // 2. ЗАГРУЗКА ОПРОСОВ НА ГЛАВНОЙ И В КАТАЛОГЕ
+    // 2. ВАЛИДАЦИЯ ФОРМЫ (Обратная связь)
+    const contactForm = document.querySelector('form[action="contacts.html"]');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const message = document.getElementById('message');
+            let isValid = true;
+
+            // Удаляем старые ошибки и сообщения об успехе
+            document.querySelectorAll('.error-text').forEach(el => el.remove());
+            document.querySelectorAll('.error-input').forEach(el => el.classList.remove('error-input'));
+            const oldSuccess = document.getElementById('success-message');
+            if (oldSuccess) oldSuccess.remove();
+
+            // Проверка имени
+            if (name.value.trim().length < 2) {
+                showError(name, 'Имя должно содержать минимум 2 символа');
+                isValid = false;
+            }
+            // Проверка email
+            if (!email.value.includes('@')) {
+                showError(email, 'Email должен содержать @');
+                isValid = false;
+            }
+            // Проверка сообщения
+            if (message && message.value.trim().length < 5) {
+                showError(message, 'Сообщение слишком короткое (минимум 5 символов)');
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Выводим зеленое сообщение об успехе
+                const successMsg = document.createElement('p');
+                successMsg.id = 'success-message';
+                successMsg.className = 'success-text';
+                successMsg.textContent = 'Сообщение успешно отправлено!';
+                contactForm.appendChild(successMsg);
+                contactForm.reset();
+            }
+        });
+    }
+
+    // Функция для вывода ошибки под полем
+    function showError(input, message) {
+        input.classList.add('error-input');
+        const errorSpan = document.createElement('span');
+        errorSpan.className = 'error-text';
+        errorSpan.textContent = message;
+        input.parentNode.insertBefore(errorSpan, input.nextSibling);
+    }
+
+    // 3. ЗАГРУЗКА ОПРОСОВ
     loadSurveysFromBackend();
 });
 
@@ -45,8 +98,6 @@ async function loadSurveysFromBackend() {
         if (!response.ok) throw new Error('Сервер не отвечает');
 
         const surveys = await response.json();
-
-        // Если мы на главной, показываем только 6 опросов, если в каталоге - все
         const limit = grid.classList.contains('survey-grid') ? 6 : surveys.length;
         const displaySurveys = surveys.slice(0, limit);
 

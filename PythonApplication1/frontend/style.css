@@ -1,7 +1,7 @@
 /* ==========================================================
    ПРОЕКТ: САЙТ ОПРОСОВ "СТАТОПРОС"
    ФАЙЛ: style.css
-   ВЕРСИЯ: 6.0 (Final Clean Version)
+   ВЕРСИЯ: 7.0 (Final with Form Messages)
    ========================================================== */
 
 :root {
@@ -550,10 +550,12 @@ legend {
     font-weight: 700;
 }
 
-/* Ошибки */
+/* ==========================================================
+   СТИЛИ ДЛЯ ОШИБОК И УСПЕХА В ФОРМАХ
+   ========================================================== */
 .error-input {
-    background: var(--danger-bg) !important;
     border-color: var(--danger) !important;
+    background-color: var(--danger-bg) !important;
 }
 
 .error-text {
@@ -562,6 +564,18 @@ legend {
     color: var(--danger);
     font-size: 0.85rem;
     font-weight: 600;
+}
+
+.success-text {
+    display: block;
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--success-bg);
+    color: var(--success);
+    border: 1px solid var(--success);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    text-align: center;
 }
 
 /* ==========================================================
