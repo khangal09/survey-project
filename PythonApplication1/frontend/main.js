@@ -42,30 +42,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const message = document.getElementById('message');
             let isValid = true;
 
-            // Удаляем старые ошибки и сообщения об успехе
             document.querySelectorAll('.error-text').forEach(el => el.remove());
             document.querySelectorAll('.error-input').forEach(el => el.classList.remove('error-input'));
             const oldSuccess = document.getElementById('success-message');
             if (oldSuccess) oldSuccess.remove();
 
-            // Проверка имени
             if (name.value.trim().length < 2) {
                 showError(name, 'Имя должно содержать минимум 2 символа');
                 isValid = false;
             }
-            // Проверка email
             if (!email.value.includes('@')) {
                 showError(email, 'Email должен содержать @');
                 isValid = false;
             }
-            // Проверка сообщения
             if (message && message.value.trim().length < 5) {
                 showError(message, 'Сообщение слишком короткое (минимум 5 символов)');
                 isValid = false;
             }
 
             if (isValid) {
-                // Выводим зеленое сообщение об успехе
                 const successMsg = document.createElement('p');
                 successMsg.id = 'success-message';
                 successMsg.className = 'success-text';
@@ -76,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Функция для вывода ошибки под полем
     function showError(input, message) {
         input.classList.add('error-input');
         const errorSpan = document.createElement('span');
@@ -87,9 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. ЗАГРУЗКА ОПРОСОВ
     loadSurveysFromBackend();
-
-    // 4. ПОИСК И ФИЛЬТРАЦИЯ (Каталог)
-    setupCatalogFilters();
 });
 
 // Загрузка опросов с сервера
@@ -114,10 +105,13 @@ async function loadSurveysFromBackend() {
 
         displaySurveys.forEach(survey => {
             const card = document.createElement('li');
+            card.setAttribute('data-title', survey.title.toLowerCase());
+            card.setAttribute('data-category', getCategoryFromTitle(survey.title));
+
             card.innerHTML = `
-                <article class="card" data-title="${survey.title.toLowerCase()}" data-category="${survey.author_id}">
+                <article class="card">
                     <div class="card__body">
-                        <span class="tag tag--tech">Опрос</span>
+                        <span class="tag tag--tech">${getTagText(survey.title)}</span>
                         <h3 class="card__title">
                             <a href="survey.html?id=${survey.id}">${survey.title}</a>
                         </h3>
@@ -132,6 +126,11 @@ async function loadSurveysFromBackend() {
             `;
             grid.appendChild(card);
         });
+
+        if (document.getElementById('filter-form')) {
+            setupCatalogFilters();
+        }
+
     } catch (error) {
         console.error("Ошибка загрузки опросов:", error);
         grid.innerHTML = `
@@ -144,40 +143,41 @@ async function loadSurveysFromBackend() {
     }
 }
 
-// Настройка поиска и фильтрации в каталоге
+function getCategoryFromTitle(title) {
+    const t = title.toLowerCase();
+    if (t.includes('язык') || t.includes('формат') || t.includes('лекции') || t.includes('расписание')) return 'study';
+    if (t.includes('столовой') || t.includes('добираетесь') || t.includes('сна') || t.includes('спорт')) return 'life';
+    if (t.includes('музыка') || t.includes('вечер') || t.includes('время года') || t.includes('книги')) return 'leisure';
+    return 'tech';
+}
+
+function getTagText(title) {
+    const category = getCategoryFromTitle(title);
+    if (category === 'study') return 'Учёба';
+    if (category === 'life') return 'Быт';
+    if (category === 'leisure') return 'Досуг';
+    return 'Технологии';
+}
+
 function setupCatalogFilters() {
     const searchInput = document.getElementById('q');
     const categorySelect = document.getElementById('category');
     const sortSelect = document.getElementById('sort');
+    const cards = document.querySelectorAll('#survey-cards li');
 
     if (!searchInput || !categorySelect || !sortSelect) return;
 
-    // Функция фильтрации
     function filterCards() {
         const query = searchInput.value.toLowerCase().trim();
         const category = categorySelect.value;
-        const cards = document.querySelectorAll('.cards li');
 
         cards.forEach(card => {
-            const title = card.querySelector('.card__title a').textContent.toLowerCase();
-            const tag = card.querySelector('.tag').textContent.toLowerCase();
+            const title = card.getAttribute('data-title') || '';
+            const cardCategory = card.getAttribute('data-category') || '';
 
-            // Проверка поиска
             const matchesSearch = title.includes(query);
+            const matchesCategory = !category || cardCategory === category;
 
-            // Проверка рубрики
-            let matchesCategory = true;
-            if (category) {
-                const categoryMap = {
-                    'study': 'учеба',
-                    'life': 'быт',
-                    'leisure': 'досуг',
-                    'tech': 'технологии'
-                };
-                matchesCategory = tag.includes(categoryMap[category] || category);
-            }
-
-            // Показ/скрытие
             if (matchesSearch && matchesCategory) {
                 card.style.display = 'block';
             } else {
@@ -186,26 +186,19 @@ function setupCatalogFilters() {
         });
     }
 
-    // Слушатели событий
     searchInput.addEventListener('input', filterCards);
     categorySelect.addEventListener('change', filterCards);
 
-    // Сортировка по названию
     sortSelect.addEventListener('change', () => {
-        const sortValue = sortSelect.value;
-        const grid = document.querySelector('.cards');
-        if (!grid) return;
-
-        const items = Array.from(grid.children);
-
-        if (sortValue === 'title') {
+        if (sortSelect.value === 'title') {
+            const grid = document.getElementById('survey-cards');
+            const items = Array.from(grid.children);
             items.sort((a, b) => {
-                const titleA = a.querySelector('.card__title a').textContent;
-                const titleB = b.querySelector('.card__title a').textContent;
+                const titleA = a.getAttribute('data-title') || '';
+                const titleB = b.getAttribute('data-title') || '';
                 return titleA.localeCompare(titleB, 'ru');
             });
+            items.forEach(item => grid.appendChild(item));
         }
-
-        items.forEach(item => grid.appendChild(item));
     });
 }
