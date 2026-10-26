@@ -5,11 +5,14 @@ from pydantic import BaseModel
 import sqlite3
 from passlib.context import CryptContext
 from database import DB_PATH, init_db
+from seed import seed_data
 from contextlib import asynccontextmanager
 
+# Инициализация базы данных и заполнение при запуске
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    init_db()
+    init_db()      # Создаем таблицы
+    seed_data()    # Добавляем 15 опросов, вопросов и вариантов
     yield
 
 app = FastAPI(lifespan=lifespan)
@@ -87,7 +90,6 @@ def get_survey_details(survey_id: int):
         questions.append({"id": q[0], "text": q[1], "options": options})
     
     conn.close()
-    
     return {
         "id": survey[0],
         "title": survey[1],
@@ -105,5 +107,5 @@ def create_survey(survey: SurveyCreate):
     conn.close()
     return {"message": "Опрос создан"}
 
-# --- СТАТИЧЕСКИЕ ФАЙЛЫ (ФРОНТЕНД) ---
+# --- РАЗДАЧА СТАТИЧЕСКИХ ФАЙЛОВ (ФРОНТЕНД) ---
 app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")

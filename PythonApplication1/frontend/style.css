@@ -1,15 +1,10 @@
 /* ==========================================================
    ПРОЕКТ: САЙТ ОПРОСОВ "СТАТОПРОС"
    ФАЙЛ: style.css
-   ВЕРСИЯ: 3.0 (Modern & Improved)
+   ВЕРСИЯ: 4.0 (Light & Clean)
    ========================================================== */
 
-/* ==========================================================
-   01. ДИЗАЙН-СИСТЕМА И ПЕРЕМЕННЫЕ
-   ========================================================== */
 :root {
-    color-scheme: light;
-    /* Основные цвета */
     --primary: #2563eb;
     --primary-hover: #1d4ed8;
     --primary-dark: #1e40af;
@@ -26,10 +21,8 @@
     --success-bg: #ecfdf5;
     --danger: #b91c1c;
     --danger-bg: #fef2f2;
-    /* Градиенты */
     --gradient-primary: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
     --gradient-hero: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
-    /* Тени и скругления */
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -39,16 +32,12 @@
     --radius-lg: 16px;
     --radius-xl: 24px;
     --radius-pill: 999px;
-    /* Размеры и отступы */
     --container-width: 1160px;
     --header-height: 72px;
     --focus-ring: 0 0 0 4px rgba(37, 99, 235, 0.15);
     --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ==========================================================
-   02. БАЗОВЫЕ СТИЛИ
-   ========================================================== */
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -743,7 +732,7 @@ progress {
     }
 
 /* ==========================================================
-   11. АДАПТИВНОСТЬ И ТЕМНАЯ ТЕМА
+   11. АДАПТИВНОСТЬ (Только светлая тема)
    ========================================================== */
 @media (min-width: 768px) {
     .two-col, .survey {
@@ -777,68 +766,6 @@ progress {
     }
 }
 
-/* Темная тема (автоматически по системе) */
-@media (prefers-color-scheme: dark) {
-    :root {
-        color-scheme: dark;
-        --background: #0f172a;
-        --surface: #1e293b;
-        --surface-secondary: #334155;
-        --heading: #f8fafc;
-        --text: #cbd5e1;
-        --muted: #94a3b8;
-        --border: #334155;
-        --border-soft: #1e293b;
-        --primary-soft: #312e81;
-    }
-
-    .site-header {
-        background: rgba(15, 23, 42, 0.85);
-    }
-
-    .card {
-        border-color: var(--border);
-    }
-
-        .card:hover {
-            border-color: var(--muted);
-        }
-
-    .hero {
-        background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-    }
-
-    .tag {
-        background: #312e81;
-        color: #e0e7ff;
-    }
-
-    .tag--life {
-        background: #164e63;
-        color: #cffafe;
-    }
-
-    .tag--leisure {
-        background: #831843;
-        color: #fce7f3;
-    }
-
-    .tag--tech {
-        background: #064e3b;
-        color: #d1fae5;
-    }
-
-    input, textarea, select {
-        background: var(--surface);
-        border-color: var(--border);
-    }
-
-        input:focus, textarea:focus, select:focus {
-            background: var(--surface);
-        }
-}
-
-/* Уменьшение анимации для доступности */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -847,7 +774,6 @@ progress {
     }
 }
 
-/* Печать */
 @media print {
     .site-header, .site-footer, .btn {
         display: none !important;
