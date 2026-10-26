@@ -3,115 +3,324 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Пройдите опрос на сайте «Статопрос» и поделитесь своим мнением.">
+    <meta name="theme-color" content="#0f766e">
+
     <title>Опрос — Статопрос</title>
+
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+    <!-- Ссылка для перехода к основному содержимому -->
+    <a class="skip-link" href="#main-content">
+        Перейти к основному содержимому
+    </a>
+
+    <!-- Шапка сайта -->
     <header class="site-header">
         <div class="container site-header__inner">
-            <a class="logo" href="index.html">
-                <img src="logo.svg" alt="Статопрос — сервис опросов" width="190" height="40">
+
+            <a class="logo"
+               href="index.html"
+               aria-label="Статопрос — главная страница">
+                <img src="logo.svg"
+                     alt="Статопрос"
+                     width="160"
+                     height="40">
             </a>
-            <nav class="nav">
+
+            <nav class="nav" aria-label="Основная навигация">
                 <ul class="nav__list">
-                    <li><a class="nav__link" href="index.html">Главная</a></li>
-                    <li><a class="nav__link" href="catalog.html">Опросы</a></li>
-                    <li><a class="nav__link" href="survey.html" aria-current="page">Пример опроса</a></li>
-                    <li><a class="nav__link" href="create.html">Создать опрос</a></li>
-                    <li><a class="nav__link" href="contacts.html">Контакты</a></li>
+                    <li>
+                        <a class="nav__link" href="index.html">
+                            Главная
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav__link" href="catalog.html">
+                            Опросы
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav__link"
+                           href="survey.html"
+                           aria-current="page">
+                            Пример опроса
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav__link" href="create.html">
+                            Создать опрос
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav__link" href="contacts.html">
+                            Контакты
+                        </a>
+                    </li>
                 </ul>
             </nav>
+
         </div>
     </header>
 
-    <main id="main">
+    <!-- Основное содержимое -->
+    <main id="main-content" class="main-content">
         <div class="container">
-            <article>
-                <h1 id="survey-title">Загрузка...</h1>
 
-                <div class="survey">
-                    <div>
-                        <div class="survey__cover">
-                            <img id="survey-cover" src="cover-study.svg" alt="Обложка рубрики" width="640" height="360">
+            <!-- Заголовок страницы -->
+            <section class="content-section"
+                     aria-labelledby="survey-title">
+                <p class="section-description">
+                    Поделитесь своим мнением, ответив на вопросы опроса.
+                </p>
+
+                <h1 id="survey-title">Загрузка опроса...</h1>
+            </section>
+
+            <!-- Содержимое опроса -->
+            <article class="survey">
+
+                <!-- Информация об опросе -->
+                <section aria-labelledby="about-title">
+                    <div class="survey__cover">
+                        <img id="survey-cover"
+                             src="cover-study.svg"
+                             alt="Обложка опроса"
+                             width="640"
+                             height="360">
+                    </div>
+
+                    <h2 id="about-title">Об опросе</h2>
+
+                    <p id="survey-description" aria-live="polite">
+                        Загружаем описание опроса...
+                    </p>
+
+                    <dl class="facts">
+                        <dt>Автор</dt>
+                        <dd id="survey-author">Загрузка...</dd>
+                    </dl>
+
+                    <p>
+                        <a class="btn btn--ghost" href="catalog.html">
+                            Вернуться к опросам
+                        </a>
+                    </p>
+                </section>
+
+                <!-- Форма голосования -->
+                <section aria-labelledby="voting-title">
+                    <form class="panel"
+                          id="survey-form"
+                          action="#"
+                          method="post">
+                        <h2 id="voting-title">Ваши ответы</h2>
+
+                        <p class="section-description">
+                            Выберите ответ на каждый обязательный вопрос.
+                        </p>
+
+                        <div id="questions-container"
+                             aria-live="polite">
+                            <p>Загрузка вопросов...</p>
                         </div>
-                        <h2>Об опросе</h2>
-                        <p id="survey-description">Загрузка описания...</p>
-                        <dl class="facts">
-                            <dt>Автор</dt>
-                            <dd id="survey-author">...</dd>
-                        </dl>
-                    </div>
 
-                    <div>
-                        <!-- Форма с вопросами будет загружена через JS -->
-                        <form class="panel" id="survey-form" action="#" method="get" onsubmit="event.preventDefault(); alert('Голос учтен! (В разработке)');">
-                            <div id="questions-container">
-                                <p>Загрузка вопросов...</p>
-                            </div>
-                            <button class="btn" type="submit" style="margin-top: 1rem;">Проголосовать</button>
-                        </form>
-                    </div>
-                </div>
+                        <p id="survey-message"
+                           role="status"
+                           aria-live="polite"></p>
+
+                        <button class="btn"
+                                id="vote-button"
+                                type="submit"
+                                style="margin-top: 1rem;"
+                                disabled>
+                            Проголосовать
+                        </button>
+                    </form>
+                </section>
+
             </article>
         </div>
     </main>
 
+    <!-- Подвал -->
     <footer class="site-footer">
-        <div class="container site-footer__inner">
-            <p>© 2026 «Статопрос».</p>
+        <div class="container">
+            <p>© 2026 «Статопрос». Учебный проект.</p>
         </div>
     </footer>
 
     <script src="main.js"></script>
+
     <script>
-                // Опросын ID-г URL-аас авах (жишээ нь: survey.html?id=1)
-                document.addEventListener('DOMContentLoaded', async () => {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const surveyId = urlParams.get('id');
+                document.addEventListener("DOMContentLoaded", async () => {
+                    const titleElement = document.getElementById("survey-title");
+                    const descriptionElement =
+                        document.getElementById("survey-description");
+                    const authorElement = document.getElementById("survey-author");
+                    const questionsContainer =
+                        document.getElementById("questions-container");
+                    const surveyForm = document.getElementById("survey-form");
+                    const voteButton = document.getElementById("vote-button");
+                    const messageElement = document.getElementById("survey-message");
+
+                    const params = new URLSearchParams(window.location.search);
+                    const surveyId = params.get("id");
+
+                    function showMessage(message, isError = false) {
+                        messageElement.textContent = message;
+                        messageElement.style.color = isError
+                            ? "var(--danger)"
+                            : "var(--success)";
+                    }
+
+                    function showError(title, description) {
+                        titleElement.textContent = title;
+                        descriptionElement.textContent = description;
+                        authorElement.textContent = "Не указан";
+                        questionsContainer.replaceChildren();
+
+                        const message = document.createElement("p");
+                        message.textContent = description;
+                        questionsContainer.appendChild(message);
+
+                        voteButton.disabled = true;
+                    }
 
                     if (!surveyId) {
-                        document.getElementById('survey-title').textContent = 'Опрос не выбран';
-                        document.getElementById('survey-description').textContent = 'Пожалуйста, выберите опрос из каталога.';
+                        showError(
+                            "Опрос не выбран",
+                            "Перейдите в каталог и выберите опрос, который хотите пройти."
+                        );
                         return;
                     }
 
                     try {
-                        const response = await fetch(`/api/surveys/${surveyId}`);
-                        if (!response.ok) throw new Error('Опрос не найден');
-                        const survey = await response.json();
+                        const response = await fetch(
+                            `/api/surveys/${encodeURIComponent(surveyId)}`
+                        );
 
-                        // Үндсэн мэдээллийг харуулах
-                        document.getElementById('survey-title').textContent = survey.title;
-                        document.getElementById('survey-description').textContent = survey.description;
-                        document.getElementById('survey-author').textContent = `ID ${survey.author_id}`;
-
-                        // Асуултуудыг динамикаар үүсгэх
-                        const container = document.getElementById('questions-container');
-                        container.innerHTML = '';
-
-                        if (survey.questions && survey.questions.length > 0) {
-                            survey.questions.forEach((q) => {
-                                const fieldset = document.createElement('fieldset');
-                                fieldset.innerHTML = `<legend>${q.text}</legend>`;
-
-                                q.options.forEach(opt => {
-                                    const label = document.createElement('label');
-                                    label.className = 'choice';
-                                    label.innerHTML = `<input type="radio" name="question_${q.id}" value="${opt.id}" required> ${opt.text}`;
-                                    fieldset.appendChild(label);
-                                });
-
-                                container.appendChild(fieldset);
-                            });
-                        } else {
-                            container.innerHTML = '<p>В этом опросе пока нет вопросов.</p>';
+                        if (!response.ok) {
+                            throw new Error(
+                                response.status === 404
+                                    ? "Опрос не найден."
+                                    : "Не удалось загрузить опрос."
+                            );
                         }
 
+                        const survey = await response.json();
+
+                        titleElement.textContent =
+                            survey.title || "Опрос без названия";
+
+                        descriptionElement.textContent =
+                            survey.description || "Описание пока не добавлено.";
+
+                        authorElement.textContent =
+                            survey.author_id != null
+                                ? `ID ${survey.author_id}`
+                                : "Не указан";
+
+                        if (survey.cover) {
+                            document.getElementById("survey-cover").src =
+                                survey.cover;
+                        }
+
+                        questionsContainer.replaceChildren();
+
+                        if (
+                            !Array.isArray(survey.questions) ||
+                            survey.questions.length === 0
+                        ) {
+                            const emptyMessage = document.createElement("p");
+                            emptyMessage.textContent =
+                                "В этом опросе пока нет вопросов.";
+
+                            questionsContainer.appendChild(emptyMessage);
+                            voteButton.disabled = true;
+                            return;
+                        }
+
+                        survey.questions.forEach((question, index) => {
+                            const fieldset = document.createElement("fieldset");
+                            const legend = document.createElement("legend");
+
+                            legend.textContent =
+                                question.text || `Вопрос ${index + 1}`;
+
+                            fieldset.appendChild(legend);
+
+                            const options = Array.isArray(question.options)
+                                ? question.options
+                                : [];
+
+                            if (options.length === 0) {
+                                const emptyOptionMessage =
+                                    document.createElement("p");
+
+                                emptyOptionMessage.textContent =
+                                    "Варианты ответа пока не добавлены.";
+
+                                fieldset.appendChild(emptyOptionMessage);
+                            }
+
+                            options.forEach((option) => {
+                                const label = document.createElement("label");
+                                const input = document.createElement("input");
+
+                                label.className = "choice";
+
+                                input.type = "radio";
+                                input.name = `question_${question.id}`;
+                                input.value = option.id;
+                                input.required = true;
+
+                                label.appendChild(input);
+                                label.appendChild(
+                                    document.createTextNode(
+                                        ` ${option.text || "Вариант ответа"}`
+                                    )
+                                );
+
+                                fieldset.appendChild(label);
+                            });
+
+                            questionsContainer.appendChild(fieldset);
+                        });
+
+                        voteButton.disabled = !survey.questions.some(
+                            (question) =>
+                                Array.isArray(question.options) &&
+                                question.options.length > 0
+                        );
+
                     } catch (error) {
-                        document.getElementById('survey-title').textContent = 'Ошибка загрузки';
-                        document.getElementById('survey-description').textContent = 'Опрос не найден в базе данных.';
+                        console.error("Ошибка загрузки опроса:", error);
+
+                        showError(
+                            "Не удалось загрузить опрос",
+                            error.message ||
+                                "Проверьте подключение к серверу и попробуйте снова."
+                        );
                     }
+
+                    surveyForm.addEventListener("submit", async (event) => {
+                        event.preventDefault();
+
+                        if (!surveyForm.reportValidity()) {
+                            return;
+                        }
+
+                        showMessage(
+                            "Голосование пока не подключено к серверу.",
+                            true
+                        );
+                    });
                 });
     </script>
 </body>

@@ -32,103 +32,32 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // 2. ВАЛИДАЦИЯ ФОРМЫ (Обратная связь)
-    const contactForm = document.querySelector('form[action="contacts.html"]');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-            const name = document.getElementById('name');
-            const email = document.getElementById('email');
-            const message = document.getElementById('message');
-            let isValid = true;
-
-            // Удаляем старые ошибки
-            document.querySelectorAll('.error-text').forEach(el => el.remove());
-            document.querySelectorAll('.error-input').forEach(el => el.classList.remove('error-input'));
-
-            // Проверка имени
-            if (name.value.trim().length < 2) {
-                showError(name, 'Имя должно содержать минимум 2 символа');
-                isValid = false;
-            }
-            // Проверка email
-            if (!email.value.includes('@')) {
-                showError(email, 'Email должен содержать @');
-                isValid = false;
-            }
-            // Проверка сообщения
-            if (message && message.value.trim().length < 5) {
-                showError(message, 'Сообщение слишком короткое (минимум 5 символов)');
-                isValid = false;
-            }
-
-            if (isValid) {
-                alert('Сообщение успешно отправлено!');
-                contactForm.reset();
-            }
-        });
-    }
-
-    // Функция для вывода ошибки под полем
-    function showError(input, message) {
-        input.classList.add('error-input');
-        const errorSpan = document.createElement('span');
-        errorSpan.className = 'error-text';
-        errorSpan.textContent = message;
-        input.parentNode.insertBefore(errorSpan, input.nextSibling);
-    }
-
-    // 3. ДИНАМИЧЕСКОЕ ДОБАВЛЕНИЕ ВОПРОСОВ (Создание опроса)
-    const createForm = document.querySelector('form[action="create.html"]');
-    if (createForm) {
-        const fieldset = createForm.querySelector('fieldset');
-        if (fieldset) {
-            const addBtn = document.createElement('button');
-            addBtn.type = 'button';
-            addBtn.className = 'btn btn--secondary';
-            addBtn.textContent = '+ Добавить вариант ответа';
-            addBtn.style.marginTop = '10px';
-            addBtn.style.display = 'block';
-            fieldset.appendChild(addBtn);
-
-            let count = 4;
-            addBtn.addEventListener('click', () => {
-                count++;
-                const div = document.createElement('div');
-                div.className = 'field';
-                div.innerHTML = `
-                    <label for="opt${count}">Вариант ${count}</label>
-                    <input type="text" id="opt${count}" name="option${count}" placeholder="Текст варианта...">
-                `;
-                fieldset.insertBefore(div, addBtn);
-            });
-        }
-    }
-
-    // 4. ЗАГРУЗКА ОПРОСОВ ИЗ БАЗЫ ДАННЫХ (Python сервер)
+    // 2. ЗАГРУЗКА ОПРОСОВ НА ГЛАВНОЙ И В КАТАЛОГЕ
     loadSurveysFromBackend();
 });
 
-// Асинхронная функция для загрузки данных с Python-сервера
 async function loadSurveysFromBackend() {
     const grid = document.querySelector('.survey-grid') || document.querySelector('.cards');
     if (!grid) return;
 
     try {
-        // Используем относительный путь для работы как локально, так и на Render
         const response = await fetch('/api/surveys');
         if (!response.ok) throw new Error('Сервер не отвечает');
 
         const surveys = await response.json();
+
+        // Если мы на главной, показываем только 6 опросов, если в каталоге - все
+        const limit = grid.classList.contains('survey-grid') ? 6 : surveys.length;
+        const displaySurveys = surveys.slice(0, limit);
+
         grid.innerHTML = '';
 
-        if (surveys.length === 0) {
+        if (displaySurveys.length === 0) {
             grid.innerHTML = '<li><p>Пока нет опросов в базе данных.</p></li>';
             return;
         }
 
-        // Отрисовка карточек
-        surveys.forEach(survey => {
+        displaySurveys.forEach(survey => {
             const card = document.createElement('li');
             card.innerHTML = `
                 <article class="card">
@@ -140,10 +69,10 @@ async function loadSurveysFromBackend() {
                         <p>${survey.description}</p>
                         <a class="btn" href="survey.html?id=${survey.id}">Пройти опрос</a>
                     </div>
-                    <div class="card__meta">
+                    <footer class="card__meta">
                         <span>Автор ID: ${survey.author_id}</span>
                         <span>Доступен</span>
-                    </div>
+                    </footer>
                 </article>
             `;
             grid.appendChild(card);

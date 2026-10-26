@@ -1,10 +1,9 @@
 /* ==========================================================
-   ПРОЕКТ: САЙТ ОПРОСОВ «СТАТОПРОС»
+   ПРОЕКТ: САЙТ ОПРОСОВ "СТАТОПРОС"
    ФАЙЛ: style.css
-   ТЕМА: BLUE-TEAL
+   ВЕРСИЯ: 6.0 (Final Clean Version)
    ========================================================== */
 
-/* 1. ДИЗАЙН-СИСТЕМА */
 :root {
     --primary: #0f766e;
     --primary-hover: #0d625b;
@@ -39,10 +38,7 @@
     --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 2. БАЗОВЫЕ СТИЛИ */
-*,
-*::before,
-*::after {
+*, *::before, *::after {
     box-sizing: border-box;
 }
 
@@ -58,7 +54,7 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
     font-size: 16px;
     line-height: 1.6;
     color: var(--text);
@@ -71,17 +67,13 @@ main {
     padding-block: 2rem;
 }
 
-img,
-svg {
+img, svg {
     display: block;
     max-width: 100%;
     height: auto;
 }
 
-button,
-input,
-textarea,
-select {
+button, input, textarea, select {
     font: inherit;
 }
 
@@ -99,10 +91,7 @@ a {
         color: var(--primary-dark);
     }
 
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
     margin-top: 0;
     color: var(--heading);
     font-weight: 800;
@@ -128,7 +117,7 @@ p {
 }
 
 ::selection {
-    color: #ffffff;
+    color: #fff;
     background: var(--primary);
 }
 
@@ -146,7 +135,7 @@ p {
     margin-inline: auto;
 }
 
-/* Полоса прокрутки */
+/* Скроллбар */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -164,7 +153,9 @@ p {
         background: var(--muted);
     }
 
-/* 3. ССЫЛКА ДЛЯ ПЕРЕХОДА К СОДЕРЖИМОМУ */
+/* ==========================================================
+   ССЫЛКА ДЛЯ ПЕРЕХОДА К СОДЕРЖИМОМУ
+   ========================================================== */
 .skip-link {
     position: absolute;
     left: 1rem;
@@ -183,7 +174,9 @@ p {
         top: 1rem;
     }
 
-/* 4. ШАПКА САЙТА */
+/* ==========================================================
+   ШАПКА САЙТА
+   ========================================================== */
 .site-header {
     position: sticky;
     top: 0;
@@ -206,6 +199,7 @@ p {
 .logo img {
     width: 160px;
     height: auto;
+    display: block;
 }
 
 .nav__list {
@@ -227,7 +221,7 @@ p {
     border-radius: var(--radius-pill);
     font-weight: 600;
     text-decoration: none;
-    transition: background var(--transition), color var(--transition), transform var(--transition);
+    transition: all var(--transition);
 }
 
     .nav__link:hover {
@@ -236,18 +230,20 @@ p {
     }
 
     .nav__link[aria-current="page"] {
-        color: #ffffff;
+        color: #fff;
         background: var(--primary);
         box-shadow: var(--shadow-primary);
     }
 
-/* 5. ГЛАВНЫЙ ЭКРАН */
+/* ==========================================================
+   ГЛАВНЫЙ ЭКРАН (HERO)
+   ========================================================== */
 .hero {
     position: relative;
     overflow: hidden;
     margin-bottom: 3rem;
     padding: clamp(2rem, 6vw, 4.5rem);
-    color: #ffffff;
+    color: #fff;
     background: var(--gradient-hero);
     border-radius: var(--radius-xl);
     box-shadow: 0 20px 40px rgba(15, 118, 110, 0.18);
@@ -256,7 +252,7 @@ p {
     .hero h1 {
         max-width: 800px;
         margin-bottom: 1rem;
-        color: #ffffff;
+        color: #fff;
         font-size: clamp(2.2rem, 5vw, 3.5rem);
         font-weight: 900;
     }
@@ -264,14 +260,14 @@ p {
     .hero p {
         max-width: 700px;
         margin-bottom: 2rem;
-        color: rgba(255, 255, 255, 0.92);
+        color: rgba(255,255,255,0.92);
         font-size: clamp(1.05rem, 2vw, 1.25rem);
     }
 
     .hero .btn {
         color: var(--primary-dark);
-        background: #ffffff;
-        border-color: #ffffff;
+        background: #fff;
+        border-color: #fff;
     }
 
         .hero .btn:hover {
@@ -281,18 +277,20 @@ p {
         }
 
     .hero .btn--ghost {
-        color: #ffffff;
+        color: #fff;
         background: transparent;
-        border: 2px solid rgba(255, 255, 255, 0.6);
+        border: 2px solid rgba(255,255,255,0.6);
     }
 
         .hero .btn--ghost:hover {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.12);
-            border-color: #ffffff;
+            color: #fff;
+            background: rgba(255,255,255,0.12);
+            border-color: #fff;
         }
 
-/* 6. КНОПКИ */
+/* ==========================================================
+   КНОПКИ
+   ========================================================== */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -300,7 +298,7 @@ p {
     gap: 0.5rem;
     min-height: 48px;
     padding: 0.75rem 1.5rem;
-    color: #ffffff;
+    color: #fff;
     background: var(--primary);
     border: 2px solid transparent;
     border-radius: var(--radius-md);
@@ -308,11 +306,11 @@ p {
     font-weight: 700;
     text-decoration: none;
     box-shadow: var(--shadow-sm);
-    transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    transition: all var(--transition);
 }
 
     .btn:hover {
-        color: #ffffff;
+        color: #fff;
         background: var(--primary-hover);
         transform: translateY(-2px);
         box-shadow: var(--shadow-primary);
@@ -330,7 +328,7 @@ p {
 }
 
     .btn--ghost:hover {
-        color: #ffffff;
+        color: #fff;
         background: var(--primary);
     }
 
@@ -340,10 +338,12 @@ p {
     gap: 1rem;
 }
 
-/* 7. КАРТОЧКИ И ШАГИ */
+/* ==========================================================
+   КАРТОЧКИ И ШАГИ
+   ========================================================== */
 .steps {
     display: grid;
-    grid-template-columns: repeat( auto-fit, minmax(min(100%, 250px), 1fr) );
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
     gap: 1.5rem;
     margin-bottom: 3rem;
     padding: 0;
@@ -372,10 +372,9 @@ p {
             font-weight: 800;
         }
 
-.cards,
-.survey-grid {
+.cards, .survey-grid {
     display: grid;
-    grid-template-columns: repeat( auto-fill, minmax(min(100%, 280px), 1fr) );
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
     gap: 1.5rem;
     margin: 0;
     padding: 0;
@@ -474,7 +473,9 @@ p {
     background: #d1fae5;
 }
 
-/* 8. ФОРМЫ И ПАНЕЛИ */
+/* ==========================================================
+   ФОРМЫ И ПАНЕЛИ
+   ========================================================== */
 .panel {
     margin-bottom: 2rem;
     padding: clamp(1.5rem, 4vw, 2.5rem);
@@ -490,7 +491,7 @@ p {
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat( auto-fit, minmax(min(100%, 220px), 1fr) );
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
     gap: 1.5rem;
 }
 
@@ -506,14 +507,7 @@ p {
         font-weight: 600;
     }
 
-input[type="text"],
-input[type="email"],
-input[type="search"],
-input[type="date"],
-input[type="number"],
-input[type="password"],
-textarea,
-select {
+input[type="text"], input[type="email"], input[type="search"], input[type="date"], input[type="number"], input[type="password"], textarea, select {
     width: 100%;
     min-height: 48px;
     padding: 0.75rem 1rem;
@@ -522,12 +516,10 @@ select {
     border: 2px solid var(--border);
     border-radius: var(--radius-md);
     font-size: 1rem;
-    transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+    transition: all var(--transition);
 }
 
-    input:focus,
-    textarea:focus,
-    select:focus {
+    input:focus, textarea:focus, select:focus {
         outline: none;
         background: var(--surface);
         border-color: var(--primary);
@@ -539,8 +531,7 @@ textarea {
     resize: vertical;
 }
 
-input[type="checkbox"],
-input[type="radio"] {
+input[type="checkbox"], input[type="radio"] {
     accent-color: var(--primary);
 }
 
@@ -559,7 +550,7 @@ legend {
     font-weight: 700;
 }
 
-/* Ошибки в формах */
+/* Ошибки */
 .error-input {
     background: var(--danger-bg) !important;
     border-color: var(--danger) !important;
@@ -573,7 +564,9 @@ legend {
     font-weight: 600;
 }
 
-/* 9. ТАБЛИЦЫ */
+/* ==========================================================
+   ТАБЛИЦЫ
+   ========================================================== */
 .table-wrap {
     width: 100%;
     margin-top: 1.5rem;
@@ -590,8 +583,7 @@ table {
     text-align: left;
 }
 
-th,
-td {
+th, td {
     padding: 1rem;
     border-bottom: 1px solid var(--border);
 }
@@ -613,7 +605,9 @@ tbody tr:hover {
     background: #f0fdfa;
 }
 
-/* 10. СТРАНИЦА ОПРОСА */
+/* ==========================================================
+   СТРАНИЦА ОПРОСА
+   ========================================================== */
 .survey {
     display: grid;
     grid-template-columns: 1fr;
@@ -656,7 +650,7 @@ tbody tr:hover {
     border: 1px solid transparent;
     border-radius: var(--radius-md);
     cursor: pointer;
-    transition: background var(--transition), border-color var(--transition);
+    transition: all var(--transition);
 }
 
     .choice:hover {
@@ -707,13 +701,14 @@ progress {
         border-radius: var(--radius-pill);
     }
 
-/* 11. ПОГОДНЫЙ ВИДЖЕТ */
+/* ==========================================================
+   ВИДЖЕТ ПОГОДЫ
+   ========================================================== */
 #weather-widget {
     margin-block: 1.5rem;
 }
 
-.weather-widget,
-.weather-card {
+.weather-widget, .weather-card {
     padding: 1.5rem;
     background: var(--surface);
     border: 1px solid var(--border);
@@ -721,7 +716,9 @@ progress {
     box-shadow: var(--shadow-sm);
 }
 
-/* 12. КОНТАКТЫ И ПОДВАЛ */
+/* ==========================================================
+   КОНТАКТЫ И ПОДВАЛ
+   ========================================================== */
 .two-col {
     display: grid;
     grid-template-columns: 1fr;
@@ -764,17 +761,18 @@ progress {
 }
 
     .site-footer a {
-        color: #ffffff;
+        color: #fff;
     }
 
         .site-footer a:hover {
             color: #99f6e4;
         }
 
-/* 13. АДАПТИВНОСТЬ */
+/* ==========================================================
+   АДАПТИВНОСТЬ
+   ========================================================== */
 @media (min-width: 768px) {
-    .two-col,
-    .survey {
+    .two-col, .survey {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
@@ -842,52 +840,45 @@ progress {
         }
 }
 
-/* 14. ДОСТУПНОСТЬ */
+/* ==========================================================
+   ДОСТУПНОСТЬ И ПЕЧАТЬ
+   ========================================================== */
 @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
 }
 
-/* 15. ПЕЧАТЬ */
 @media print {
-    .site-header,
-    .site-footer,
-    .btn,
-    .skip-link {
+    .site-header, .site-footer, .btn, .skip-link {
         display: none !important;
     }
 
     body {
-        color: #000000;
-        background: #ffffff;
+        color: #000;
+        background: #fff;
     }
 
     .hero {
-        color: #000000;
-        background: #ffffff;
-        border: 1px solid #cccccc;
+        color: #000;
+        background: #fff;
+        border: 1px solid #ccc;
         box-shadow: none;
     }
 
-        .hero h1,
-        .hero p {
-            color: #000000;
+        .hero h1, .hero p {
+            color: #000;
         }
 
-    .panel,
-    .card,
-    .steps li {
-        border: 1px solid #cccccc;
+    .panel, .card, .steps li {
+        border: 1px solid #ccc;
         box-shadow: none;
     }
 
     a {
-        color: #000000;
+        color: #000;
         text-decoration: underline;
     }
 }
