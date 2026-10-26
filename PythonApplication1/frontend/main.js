@@ -87,8 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. ЗАГРУЗКА ОПРОСОВ
     loadSurveysFromBackend();
+
+    // 4. ПОИСК И ФИЛЬТРАЦИЯ (Каталог)
+    setupCatalogFilters();
 });
 
+// Загрузка опросов с сервера
 async function loadSurveysFromBackend() {
     const grid = document.querySelector('.survey-grid') || document.querySelector('.cards');
     if (!grid) return;
@@ -111,7 +115,7 @@ async function loadSurveysFromBackend() {
         displaySurveys.forEach(survey => {
             const card = document.createElement('li');
             card.innerHTML = `
-                <article class="card">
+                <article class="card" data-title="${survey.title.toLowerCase()}" data-category="${survey.author_id}">
                     <div class="card__body">
                         <span class="tag tag--tech">Опрос</span>
                         <h3 class="card__title">
@@ -138,4 +142,70 @@ async function loadSurveysFromBackend() {
             </li>
         `;
     }
+}
+
+// Настройка поиска и фильтрации в каталоге
+function setupCatalogFilters() {
+    const searchInput = document.getElementById('q');
+    const categorySelect = document.getElementById('category');
+    const sortSelect = document.getElementById('sort');
+
+    if (!searchInput || !categorySelect || !sortSelect) return;
+
+    // Функция фильтрации
+    function filterCards() {
+        const query = searchInput.value.toLowerCase().trim();
+        const category = categorySelect.value;
+        const cards = document.querySelectorAll('.cards li');
+
+        cards.forEach(card => {
+            const title = card.querySelector('.card__title a').textContent.toLowerCase();
+            const tag = card.querySelector('.tag').textContent.toLowerCase();
+
+            // Проверка поиска
+            const matchesSearch = title.includes(query);
+
+            // Проверка рубрики
+            let matchesCategory = true;
+            if (category) {
+                const categoryMap = {
+                    'study': 'учеба',
+                    'life': 'быт',
+                    'leisure': 'досуг',
+                    'tech': 'технологии'
+                };
+                matchesCategory = tag.includes(categoryMap[category] || category);
+            }
+
+            // Показ/скрытие
+            if (matchesSearch && matchesCategory) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Слушатели событий
+    searchInput.addEventListener('input', filterCards);
+    categorySelect.addEventListener('change', filterCards);
+
+    // Сортировка по названию
+    sortSelect.addEventListener('change', () => {
+        const sortValue = sortSelect.value;
+        const grid = document.querySelector('.cards');
+        if (!grid) return;
+
+        const items = Array.from(grid.children);
+
+        if (sortValue === 'title') {
+            items.sort((a, b) => {
+                const titleA = a.querySelector('.card__title a').textContent;
+                const titleB = b.querySelector('.card__title a').textContent;
+                return titleA.localeCompare(titleB, 'ru');
+            });
+        }
+
+        items.forEach(item => grid.appendChild(item));
+    });
 }
