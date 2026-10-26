@@ -10,12 +10,12 @@
 :root {
     color-scheme: light;
     /* Основные цвета */
-    --primary: #4f46e5;
-    --primary-hover: #4338ca;
-    --primary-dark: #3730a3;
-    --primary-soft: #eef2ff;
-    --heading: #1e1b4b;
-    --text: #374151;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --primary-dark: #1e40af;
+    --primary-soft: #eff6ff;
+    --heading: #0f172a;
+    --text: #334155;
     --muted: #64748b;
     --background: #f8fafc;
     --surface: #ffffff;
@@ -26,16 +26,14 @@
     --success-bg: #ecfdf5;
     --danger: #b91c1c;
     --danger-bg: #fef2f2;
-    --info: #075985;
-    --info-bg: #e0f2fe;
     /* Градиенты */
-    --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-    --gradient-hero: linear-gradient(135deg, #312e81 0%, #4f46e5 50%, #7c3aed 100%);
+    --gradient-primary: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    --gradient-hero: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
     /* Тени и скругления */
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-primary: 0 4px 14px rgba(79, 70, 229, 0.3);
+    --shadow-primary: 0 4px 14px rgba(37, 99, 235, 0.3);
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
@@ -44,7 +42,7 @@
     /* Размеры и отступы */
     --container-width: 1160px;
     --header-height: 72px;
-    --focus-ring: 0 0 0 4px rgba(79, 70, 229, 0.15);
+    --focus-ring: 0 0 0 4px rgba(37, 99, 235, 0.15);
     --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -193,6 +191,19 @@ p {
     height: auto;
 }
 
+.site-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--heading);
+}
+
+    .site-logo span:first-child {
+        font-size: 1.5rem;
+    }
+
 .nav__list {
     display: flex;
     flex-wrap: wrap;
@@ -237,7 +248,7 @@ p {
     color: #fff;
     background: var(--gradient-hero);
     border-radius: var(--radius-xl);
-    box-shadow: 0 20px 40px rgba(79, 70, 229, 0.2);
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2);
 }
 
     .hero h1 {
@@ -266,13 +277,13 @@ p {
             transform: translateY(-2px);
         }
 
-    .hero .btn--ghost {
+    .hero .btn--secondary {
         background: transparent;
         color: #fff;
         border: 2px solid rgba(255,255,255,0.5);
     }
 
-        .hero .btn--ghost:hover {
+        .hero .btn--secondary:hover {
             background: rgba(255,255,255,0.1);
             border-color: #fff;
         }
@@ -308,14 +319,14 @@ p {
         transform: translateY(0);
     }
 
-.btn--ghost {
+.btn--secondary {
     background: transparent;
     color: var(--primary);
     border: 2px solid var(--primary);
     box-shadow: none;
 }
 
-    .btn--ghost:hover {
+    .btn--secondary:hover {
         background: var(--primary);
         color: #fff;
     }
