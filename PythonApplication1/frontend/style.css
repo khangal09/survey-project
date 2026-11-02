@@ -1,9 +1,8 @@
 /* ==========================================================
-   ПРОЕКТ: САЙТ ОПРОСОВ "СТАТОПРОС"
-   ФАЙЛ: style.css
-   ВЕРСИЯ: 8.0 (Final)
+   СТАТОПРОС — style.css (v12)
    ========================================================== */
 
+/* 01. ПЕРЕМЕННЫЕ */
 :root {
     --primary: #0f766e;
     --primary-hover: #0d625b;
@@ -16,7 +15,6 @@
     --surface: #ffffff;
     --surface-secondary: #f8fafc;
     --border: #e2e8f0;
-    --border-soft: #f1f5f9;
     --success: #047857;
     --success-bg: #ecfdf5;
     --danger: #b91c1c;
@@ -38,6 +36,7 @@
     --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* 02. БАЗА */
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -54,7 +53,7 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+    font-family: "Inter", "Segoe UI", Roboto, sans-serif;
     font-size: 16px;
     line-height: 1.6;
     color: var(--text);
@@ -79,6 +78,24 @@ button, input, textarea, select {
 
 button {
     cursor: pointer;
+}
+
+p {
+    margin-top: 0;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+::selection {
+    color: #fff;
+    background: var(--primary);
+}
+
+:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
 }
 
 a {
@@ -112,64 +129,39 @@ h3 {
     font-size: clamp(1.15rem, 2vw, 1.35rem);
 }
 
-p {
-    margin-top: 0;
-}
-
-::selection {
-    color: #fff;
-    background: var(--primary);
-}
-
-:focus-visible {
-    outline: 3px solid var(--primary);
-    outline-offset: 2px;
-}
-
-[hidden] {
-    display: none !important;
-}
-
 .container {
     width: min(var(--container-width), calc(100% - 2rem));
     margin-inline: auto;
 }
 
-::-webkit-scrollbar {
-    width: 10px;
+.content-section {
+    margin-bottom: 3rem;
 }
 
-::-webkit-scrollbar-track {
-    background: var(--background);
+.section-description {
+    color: var(--muted);
 }
 
-::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 5px;
-}
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: var(--muted);
-    }
-
+/* 03. ДОСТУПНОСТЬ */
 .skip-link {
     position: absolute;
     left: 1rem;
     top: -100px;
     z-index: 1000;
     padding: 0.75rem 1.25rem;
-    background: var(--primary);
     color: #fff;
+    background: var(--primary);
     border-radius: var(--radius-md);
     font-weight: 600;
-    text-decoration: none;
     transition: top var(--transition);
 }
 
     .skip-link:focus {
         top: 1rem;
+        color: #fff;
     }
 
+/* 04. ШАПКА */
 .site-header {
     position: sticky;
     top: 0;
@@ -192,7 +184,6 @@ p {
 .logo img {
     width: 160px;
     height: auto;
-    display: block;
 }
 
 .nav__list {
@@ -213,7 +204,6 @@ p {
     color: var(--text);
     border-radius: var(--radius-pill);
     font-weight: 600;
-    text-decoration: none;
     transition: all var(--transition);
 }
 
@@ -228,9 +218,8 @@ p {
         box-shadow: var(--shadow-primary);
     }
 
+/* 05. HERO */
 .hero {
-    position: relative;
-    overflow: hidden;
     margin-bottom: 3rem;
     padding: clamp(2rem, 6vw, 4.5rem);
     color: #fff;
@@ -243,14 +232,13 @@ p {
         max-width: 800px;
         margin-bottom: 1rem;
         color: #fff;
-        font-size: clamp(2.2rem, 5vw, 3.5rem);
         font-weight: 900;
     }
 
     .hero p {
         max-width: 700px;
         margin-bottom: 2rem;
-        color: rgba(255,255,255,0.92);
+        color: rgba(255, 255, 255, 0.92);
         font-size: clamp(1.05rem, 2vw, 1.25rem);
     }
 
@@ -263,21 +251,20 @@ p {
         .hero .btn:hover {
             background: var(--primary-soft);
             border-color: var(--primary-soft);
-            transform: translateY(-2px);
         }
 
     .hero .btn--ghost {
         color: #fff;
         background: transparent;
-        border: 2px solid rgba(255,255,255,0.6);
+        border-color: rgba(255, 255, 255, 0.6);
     }
 
         .hero .btn--ghost:hover {
-            color: #fff;
-            background: rgba(255,255,255,0.12);
+            background: rgba(255, 255, 255, 0.12);
             border-color: #fff;
         }
 
+/* 06. КНОПКИ */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -289,9 +276,7 @@ p {
     background: var(--primary);
     border: 2px solid transparent;
     border-radius: var(--radius-md);
-    font-size: 1rem;
     font-weight: 700;
-    text-decoration: none;
     box-shadow: var(--shadow-sm);
     transition: all var(--transition);
 }
@@ -307,10 +292,16 @@ p {
         transform: translateY(0);
     }
 
+    .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
 .btn--ghost {
     color: var(--primary);
     background: transparent;
-    border: 2px solid var(--primary);
+    border-color: var(--primary);
     box-shadow: none;
 }
 
@@ -325,13 +316,14 @@ p {
     gap: 1rem;
 }
 
+/* 07. ШАГИ И КАРТОЧКИ */
 .steps {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
     gap: 1.5rem;
-    margin-bottom: 3rem;
+    margin: 0 0 3rem;
     padding: 0;
     list-style: none;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
 }
 
     .steps li {
@@ -353,21 +345,40 @@ p {
             margin-bottom: 0.5rem;
             color: var(--primary);
             font-size: 1.2rem;
-            font-weight: 800;
+        }
+
+        .steps li p {
+            margin: 0;
         }
 
 .cards, .survey-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
     gap: 1.5rem;
     margin: 0;
     padding: 0;
     list-style: none;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+}
+
+    .cards > li, .survey-grid > li {
+        min-width: 0;
+        display: flex;
+    }
+
+.state-msg {
+    grid-column: 1 / -1;
+    color: var(--muted);
+}
+
+.state-msg--error {
+    color: var(--danger);
+    font-weight: 600;
 }
 
 .card {
     display: flex;
     flex-direction: column;
+    flex: 1;
     overflow: hidden;
     min-width: 0;
     background: var(--surface);
@@ -383,22 +394,16 @@ p {
         border-color: #99f6e4;
     }
 
-    .card img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        background: var(--surface-secondary);
-    }
-
 .card__body {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     flex: 1;
     padding: 1.5rem;
 }
 
 .card__title {
-    margin: 0 0 0.5rem;
+    margin: 0.75rem 0 0.5rem;
 }
 
     .card__title a {
@@ -417,6 +422,10 @@ p {
     font-size: 0.95rem;
 }
 
+.card__body .btn {
+    margin-top: auto;
+}
+
 .card__meta {
     display: flex;
     align-items: center;
@@ -424,31 +433,38 @@ p {
     flex-wrap: wrap;
     gap: 0.5rem;
     padding: 1rem 1.5rem;
-    background: var(--surface-secondary);
-    border-top: 1px solid var(--border);
     color: var(--muted);
     font-size: 0.9rem;
+    background: var(--surface-secondary);
+    border-top: 1px solid var(--border);
 }
 
+/* 08. ТЕГИ РУБРИК */
 .tag {
     display: inline-block;
     padding: 0.25rem 0.75rem;
     color: var(--primary-dark);
     background: var(--primary-soft);
     border-radius: var(--radius-pill);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.tag--study {
+    color: #1d4ed8;
+    background: #dbeafe;
 }
 
 .tag--life {
-    color: #0e7490;
-    background: #cffafe;
+    color: #b45309;
+    background: #fef3c7;
 }
 
 .tag--leisure {
-    color: #0e7490;
-    background: #cffafe;
+    color: #be185d;
+    background: #fce7f3;
 }
 
 .tag--tech {
@@ -456,6 +472,7 @@ p {
     background: #d1fae5;
 }
 
+/* 09. ПАНЕЛИ И ФОРМЫ */
 .panel {
     margin-bottom: 2rem;
     padding: clamp(1.5rem, 4vw, 2.5rem);
@@ -471,9 +488,13 @@ p {
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
     gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
 }
+
+    .form-grid .field {
+        margin-bottom: 0;
+    }
 
 .field {
     margin-bottom: 1.25rem;
@@ -482,12 +503,12 @@ p {
     .field label {
         display: block;
         margin-bottom: 0.5rem;
-        color: var(--text);
         font-size: 0.95rem;
         font-weight: 600;
     }
 
-input[type="text"], input[type="email"], input[type="search"], input[type="date"], input[type="number"], input[type="password"], textarea, select {
+input[type="text"], input[type="email"], input[type="search"], input[type="date"],
+input[type="password"], textarea, select {
     width: 100%;
     min-height: 48px;
     padding: 0.75rem 1rem;
@@ -495,7 +516,6 @@ input[type="text"], input[type="email"], input[type="search"], input[type="date"
     background: var(--surface-secondary);
     border: 2px solid var(--border);
     border-radius: var(--radius-md);
-    font-size: 1rem;
     transition: all var(--transition);
 }
 
@@ -511,13 +531,14 @@ textarea {
     resize: vertical;
 }
 
-input[type="checkbox"], input[type="radio"] {
+input[type="radio"], input[type="checkbox"] {
     accent-color: var(--primary);
 }
 
 fieldset {
     margin: 1.5rem 0;
     padding: 1.5rem;
+    min-width: 0;
     background: var(--surface-secondary);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
@@ -543,25 +564,27 @@ legend {
     font-weight: 600;
 }
 
-.success-text {
-    display: block;
-    margin-top: 1rem;
-    padding: 0.75rem 1rem;
-    background: var(--success-bg);
-    color: var(--success);
-    border: 1px solid var(--success);
-    border-radius: var(--radius-sm);
+.status {
+    min-height: 1.5em;
+    margin: 1rem 0 0;
     font-weight: 600;
-    text-align: center;
 }
 
+    .status[data-state="success"] {
+        color: var(--success);
+    }
+
+    .status[data-state="error"] {
+        color: var(--danger);
+    }
+
+/* 10. ТАБЛИЦЫ И СВОДКА */
 .table-wrap {
     width: 100%;
     margin-top: 1.5rem;
     overflow-x: auto;
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
 }
 
 table {
@@ -571,16 +594,22 @@ table {
     text-align: left;
 }
 
+caption {
+    padding: 0.75rem 1rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-align: left;
+}
+
 th, td {
-    padding: 1rem;
+    padding: 0.9rem 1rem;
     border-bottom: 1px solid var(--border);
 }
 
 th {
     color: var(--primary-dark);
     background: var(--surface-secondary);
-    font-size: 0.9rem;
-    font-weight: 700;
+    font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -593,6 +622,27 @@ tbody tr:hover {
     background: #f0fdfa;
 }
 
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1rem 0 0;
+    text-align: center;
+}
+
+    .stats dt {
+        color: var(--muted);
+        font-size: 0.85rem;
+    }
+
+    .stats dd {
+        margin: 0;
+        color: var(--primary);
+        font-size: 1.75rem;
+        font-weight: 800;
+    }
+
+/* 11. СТРАНИЦА ОПРОСА */
 .survey {
     display: grid;
     grid-template-columns: 1fr;
@@ -600,13 +650,17 @@ tbody tr:hover {
     align-items: start;
 }
 
-.survey__cover img {
-    width: 100%;
-    max-height: 400px;
-    object-fit: cover;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
+.survey__cover {
+    margin-bottom: 1.5rem;
 }
+
+    .survey__cover img {
+        width: 100%;
+        max-height: 360px;
+        object-fit: cover;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+    }
 
 .facts {
     display: grid;
@@ -631,7 +685,7 @@ tbody tr:hover {
     align-items: flex-start;
     gap: 0.75rem;
     margin-bottom: 0.5rem;
-    padding: 1rem;
+    padding: 0.9rem 1rem;
     border: 1px solid transparent;
     border-radius: var(--radius-md);
     cursor: pointer;
@@ -644,22 +698,32 @@ tbody tr:hover {
     }
 
     .choice input {
+        flex: none;
         width: 1.25rem;
         height: 1.25rem;
         margin-top: 0.15rem;
-        accent-color: var(--primary);
     }
 
 .result {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
 }
 
 .result__head {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
     font-weight: 600;
+}
+
+    .result__head span:last-child {
+        color: var(--muted);
+        white-space: nowrap;
+    }
+
+.results-question {
+    margin: 1.5rem 0 1rem;
+    font-size: 1.15rem;
 }
 
 progress {
@@ -686,22 +750,30 @@ progress {
         border-radius: var(--radius-pill);
     }
 
-#weather-widget {
-    margin-block: 1.5rem;
+/* 12. ПОГОДА */
+.weather-widget {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0;
+    padding: 1.25rem 1.5rem;
 }
 
-.weather-widget, .weather-card {
-    padding: 1.5rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
+.weather-widget__icon {
+    font-size: 2rem;
+    line-height: 1;
 }
 
+.weather-widget__text {
+    margin: 0;
+}
+
+/* 13. КОНТАКТЫ И ПОДВАЛ */
 .two-col {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
+    align-items: start;
 }
 
 .contact-list {
@@ -721,7 +793,7 @@ progress {
         }
 
 .slogan {
-    margin-top: 2rem;
+    margin: 2rem 0 0;
     padding-left: 1rem;
     color: var(--primary-dark);
     border-left: 4px solid var(--primary);
@@ -739,14 +811,11 @@ progress {
     text-align: center;
 }
 
-    .site-footer a {
-        color: #fff;
+    .site-footer p {
+        margin: 0;
     }
 
-        .site-footer a:hover {
-            color: #99f6e4;
-        }
-
+/* 14. АДАПТИВНОСТЬ */
 @media (min-width: 768px) {
     .two-col, .survey {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -775,7 +844,6 @@ progress {
 
         .hero .btn {
             width: 100%;
-            margin-bottom: 0.5rem;
         }
 
     .container {
@@ -783,10 +851,6 @@ progress {
     }
 
     .panel {
-        padding: 1.25rem;
-    }
-
-    .card__body {
         padding: 1.25rem;
     }
 }
@@ -814,8 +878,13 @@ progress {
         .facts dd {
             margin-bottom: 0.75rem;
         }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
 }
 
+/* 15. ДВИЖЕНИЕ И ПЕЧАТЬ */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;

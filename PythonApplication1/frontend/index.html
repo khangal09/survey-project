@@ -21,9 +21,9 @@
                 <ul class="nav__list">
                     <li><a class="nav__link" href="index.html" aria-current="page">Главная</a></li>
                     <li><a class="nav__link" href="catalog.html">Опросы</a></li>
-                    <li><a class="nav__link" href="survey.html">Пример опроса</a></li>
                     <li><a class="nav__link" href="create.html">Создать опрос</a></li>
                     <li><a class="nav__link" href="contacts.html">Контакты</a></li>
+                    <li><a class="nav__link" href="login.html" id="auth-link">Войти</a></li>
                 </ul>
             </nav>
         </div>
@@ -41,28 +41,28 @@
             </section>
 
             <section class="content-section" aria-labelledby="weather-title">
-                <h2 id="weather-title" class="section-heading">Погода</h2>
-                <div id="weather-widget" class="panel weather-widget" aria-live="polite" aria-atomic="true">
+                <h2 id="weather-title">Погода</h2>
+                <div id="weather-widget" class="panel weather-widget" aria-live="polite">
                     <span class="weather-widget__icon" aria-hidden="true">🌤️</span>
                     <p class="weather-widget__text">Загрузка данных о погоде...</p>
                 </div>
             </section>
 
             <section class="content-section" aria-labelledby="steps-title">
-                <h2 id="steps-title" class="section-heading">Как это работает</h2>
+                <h2 id="steps-title">Как это работает</h2>
                 <p class="section-description">Начните работу с сервисом в три простых шага.</p>
                 <ol class="steps">
-                    <li><strong>Создайте опрос</strong><p>Укажите название, добавьте вопросы и выберите варианты ответов.</p></li>
-                    <li><strong>Соберите ответы</strong><p>Предложите участникам пройти опрос и поделиться своим мнением.</p></li>
-                    <li><strong>Изучите результаты</strong><p>Просмотрите собранные ответы, сравните результаты и сделайте выводы.</p></li>
+                    <li><strong>Создайте опрос</strong><p>Укажите название, рубрику и варианты ответов.</p></li>
+                    <li><strong>Соберите ответы</strong><p>Предложите участникам пройти опрос и поделиться мнением.</p></li>
+                    <li><strong>Изучите результаты</strong><p>Посмотрите, как распределились голоса, и сделайте выводы.</p></li>
                 </ol>
             </section>
 
             <section class="content-section" aria-labelledby="popular-title">
-                <h2 id="popular-title" class="section-heading">Популярные опросы</h2>
-                <p class="section-description">Выберите интересующую тему и ознакомьтесь с доступными опросами.</p>
+                <h2 id="popular-title">Популярные опросы</h2>
+                <p class="section-description">Опросы, в которых уже собрано больше всего ответов.</p>
                 <ul class="survey-grid" aria-label="Популярные опросы" aria-live="polite">
-                    <!-- Карточки добавляются через main.js -->
+                    <li class="state-msg">Загрузка опросов...</li>
                 </ul>
                 <div class="btn-row" style="margin-top: 1.5rem;">
                     <a class="btn btn--ghost" href="catalog.html">Перейти в каталог</a>
@@ -70,8 +70,8 @@
             </section>
 
             <section class="content-section panel" aria-labelledby="start-title">
-                <h2 id="start-title" class="section-heading">Готовы создать свой опрос?</h2>
-                <p class="section-description">Подготовьте вопросы, добавьте варианты ответов и начните собирать мнения участников.</p>
+                <h2 id="start-title">Готовы создать свой опрос?</h2>
+                <p class="section-description">Подготовьте вопрос, добавьте варианты ответов и начните собирать мнения.</p>
                 <div class="btn-row">
                     <a class="btn" href="create.html">Создать опрос</a>
                     <a class="btn btn--ghost" href="contacts.html">Контакты</a>
@@ -83,6 +83,7 @@
     <footer class="site-footer">
         <div class="container"><p>© 2026 «Статопрос». Учебный проект.</p></div>
     </footer>
+
     <script src="main.js"></script>
 </body>
 </html>

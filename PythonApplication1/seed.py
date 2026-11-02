@@ -1,155 +1,114 @@
-import sqlite3
-from database import DB_PATH, init_db
+import random
+from database import get_db, init_db
+
+# Пароль у служебного пользователя "admin" не существует: войти под ним нельзя.
+UNUSABLE_HASH = "!disabled"
+
+# (название, описание, рубрика, [(вопрос, [варианты])])
+SURVEYS = [
+    ("Любимый язык программирования", "Выберите ваш основной инструмент", "tech",
+     [("Какой язык вы учите первым?", ["Python", "JavaScript", "Java", "C++"]),
+      ("Что важнее в коде?", ["Скорость", "Читаемость", "Безопасность"])]),
+    ("Лучшая ОС для работы", "Windows, Mac или Linux?", "tech",
+     [("На какой ОС вы работаете?", ["Windows", "macOS", "Linux"]),
+      ("Что важнее в ОС?", ["Удобство", "Безопасность", "Скорость"])]),
+    ("Как вы добираетесь до учебы?", "Транспортный вопрос", "life",
+     [("На чем вы ездите?", ["Метро", "Автобус", "Машина", "Пешком"]),
+      ("Сколько времени занимает дорога?", ["< 30 мин", "30-60 мин", "> 1 часа"])]),
+    ("Любимый предмет в школе", "Ностальгия", "study",
+     [("Какой предмет был любимым?", ["Математика", "Информатика", "История", "Литература"])]),
+    ("Кофе или чай?", "Главный напиток студента", "life",
+     [("Что вы пьете чаще?", ["Кофе", "Чай", "Воду"])]),
+    ("Сколько часов вы спите?", "Режим дня", "life",
+     [("Сколько часов сна вам хватает?", ["< 6 часов", "6-8 часов", "> 8 часов"])]),
+    ("Любимый фреймворк", "Фронтенд или бэкенд?", "tech",
+     [("Какой фреймворк вам нравится?", ["React", "Vue", "Django", "FastAPI"])]),
+    ("Играете ли вы в видеоигры?", "Геймерская тема", "leisure",
+     [("Как часто вы играете?", ["Каждый день", "Раз в неделю", "Редко", "Не играю"])]),
+    ("Какая погода вам нравится?", "Погодные предпочтения", "leisure",
+     [("Какая погода идеальна?", ["Солнечная", "Дождливая", "Снежная", "Облачная"])]),
+    ("Ваш любимый жанр фильмов", "Кино", "leisure",
+     [("Что предпочитаете смотреть?", ["Фантастика", "Комедия", "Драма", "Ужасы"])]),
+    ("Сколько раз в день вы едите?", "Питание", "life",
+     [("Сколько приемов пищи в день?", ["1-2", "3", "4-5", "Больше 5"])]),
+    ("Занимаетесь ли вы спортом?", "Здоровый образ жизни", "life",
+     [("Сколько раз в неделю тренируетесь?", ["0 раз", "1-2 раза", "3-4 раза", "Каждый день"])]),
+    ("Любимый мессенджер", "Средства связи", "tech",
+     [("Чем пользуетесь чаще?", ["Telegram", "WhatsApp", "VK", "Discord"])]),
+    ("Планируете ли вы поехать за границу?", "Путешествия", "leisure",
+     [("Куда бы хотели поехать?", ["Европа", "Азия", "Америка", "Не планирую"])]),
+    ("Ваш любимый праздник", "Традиции", "leisure",
+     [("Какой праздник ждете больше всего?", ["Новый год", "День рождения", "Лето", "Хэллоуин"])]),
+]
+
 
 def seed_data():
-    init_db() 
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
+    """Наполняет базу демо-данными (повторный запуск ничего не дублирует)."""
+    init_db()
+    with get_db() as conn:
+        conn.execute(
+            "INSERT OR IGNORE INTO users (id, username, password_hash) VALUES (1, 'admin', ?)",
+            (UNUSABLE_HASH,),
+        )
+        # Старая версия хранила 'fakehash123' — заменяем на безопасное значение
+        conn.execute(
+            "UPDATE users SET password_hash = ? WHERE username = 'admin' AND password_hash = 'fakehash123'",
+            (UNUSABLE_HASH,),
+        )
 
-    # Тест хэрэглэгч
-    cursor.execute("INSERT OR IGNORE INTO users (id, username, password_hash) VALUES (1, 'admin', 'fakehash123')")
-
-    # 15 опрос, тус бүрд нь асуулт, сонголтууд
-    surveys_data = [
-        {
-            "title": "Любимый язык программирования", 
-            "desc": "Выберите ваш основной инструмент",
-            "questions": [
-                {"q": "Какой язык вы учите первым?", "opts": ["Python", "JavaScript", "Java", "C++"]},
-                {"q": "Что важнее в коде?", "opts": ["Скорость", "Читаемость", "Безопасность"]}
-            ]
-        },
-        {
-            "title": "Лучшая ОС для работы", 
-            "desc": "Windows, Mac или Linux?",
-            "questions": [
-                {"q": "На какой ОС вы работаете?", "opts": ["Windows", "macOS", "Linux"]},
-                {"q": "Что важнее в ОС?", "opts": ["Удобство", "Безопасность", "Скорость"]}
-            ]
-        },
-        {
-            "title": "Как вы добираетесь до учебы?", 
-            "desc": "Транспортный вопрос",
-            "questions": [
-                {"q": "На чем вы ездите?", "opts": ["Метро", "Автобус", "Машина", "Пешком"]},
-                {"q": "Сколько времени занимает дорога?", "opts": ["< 30 мин", "30-60 мин", "> 1 часа"]}
-            ]
-        },
-        {
-            "title": "Любимый предмет в школе", 
-            "desc": "Ностальгия",
-            "questions": [
-                {"q": "Какой предмет был любимым?", "opts": ["Математика", "Информатика", "История", "Литература"]}
-            ]
-        },
-        {
-            "title": "Кофе или чай?", 
-            "desc": "Главный напиток студента",
-            "questions": [
-                {"q": "Что вы пьете чаще?", "opts": ["Кофе", "Чай", "Воду"]}
-            ]
-        },
-        {
-            "title": "Сколько часов вы спите?", 
-            "desc": "Режим дня",
-            "questions": [
-                {"q": "Сколько часов сна вам хватает?", "opts": ["< 6 часов", "6-8 часов", "> 8 часов"]}
-            ]
-        },
-        {
-            "title": "Любимый фреймворк", 
-            "desc": "Фронтенд или бэкенд?",
-            "questions": [
-                {"q": "Какой фреймворк вам нравится?", "opts": ["React", "Vue", "Django", "FastAPI"]}
-            ]
-        },
-        {
-            "title": "Играете ли вы в видеоигры?", 
-            "desc": "Геймерская тема",
-            "questions": [
-                {"q": "Как часто вы играете?", "opts": ["Каждый день", "Раз в неделю", "Редко", "Не играю"]}
-            ]
-        },
-        {
-            "title": "Какая погода вам нравится?", 
-            "desc": "Погодные предпочтения",
-            "questions": [
-                {"q": "Какая погода идеальна?", "opts": ["Солнечная", "Дождливая", "Снежная", "Облачная"]}
-            ]
-        },
-        {
-            "title": "Ваш любимый жанр фильмов", 
-            "desc": "Кино",
-            "questions": [
-                {"q": "Что предпочитаете смотреть?", "opts": ["Фантастика", "Комедия", "Драма", "Ужасы"]}
-            ]
-        },
-        {
-            "title": "Сколько раз в день вы едите?", 
-            "desc": "Питание",
-            "questions": [
-                {"q": "Сколько приемов пищи в день?", "opts": ["1-2", "3", "4-5", "Больше 5"]}
-            ]
-        },
-        {
-            "title": "Занимаетесь ли вы спортом?", 
-            "desc": "Здоровый образ жизни",
-            "questions": [
-                {"q": "Сколько раз в неделю тренируетесь?", "opts": ["0 раз", "1-2 раза", "3-4 раза", "Каждый день"]}
-            ]
-        },
-        {
-            "title": "Любимый мессенджер", 
-            "desc": "Средства связи",
-            "questions": [
-                {"q": "Чем пользуетесь чаще?", "opts": ["Telegram", "WhatsApp", "VK", "Discord"]}
-            ]
-        },
-        {
-            "title": "Планируете ли вы поехать за границу?", 
-            "desc": "Путешествия",
-            "questions": [
-                {"q": "Куда бы хотели поехать?", "opts": ["Европа", "Азия", "Америка", "Не планирую"]}
-            ]
-        },
-        {
-            "title": "Ваш любимый праздник", 
-            "desc": "Традиции",
-            "questions": [
-                {"q": "Какой праздник ждете больше всего?", "opts": ["Новый год", "День рождения", "Лето", "Хэллоуин"]}
-            ]
-        }
-    ]
-
-    for s in surveys_data:
-        # Опрос нэмэх
-        cursor.execute("SELECT id FROM surveys WHERE title = ?", (s["title"],))
-        row = cursor.fetchone()
-        if row:
-            survey_id = row[0]
-        else:
-            cursor.execute("INSERT INTO surveys (title, description, author_id) VALUES (?, ?, 1)", (s["title"], s["desc"]))
-            survey_id = cursor.lastrowid
-
-        # Асуултууд нэмэх
-        for q in s["questions"]:
-            cursor.execute("SELECT id FROM questions WHERE question_text = ? AND survey_id = ?", (q["q"], survey_id))
-            q_row = cursor.fetchone()
-            if q_row:
-                question_id = q_row[0]
+        for index, (title, desc, category, questions) in enumerate(SURVEYS):
+            row = conn.execute("SELECT id FROM surveys WHERE title = ?", (title,)).fetchone()
+            is_new = row is None
+            if is_new:
+                cur = conn.execute(
+                    "INSERT INTO surveys (title, description, author_id, category, created_at) "
+                    "VALUES (?, ?, 1, ?, datetime('now', ?))",
+                    (title, desc, category, f"-{index} days"),
+                )
+                survey_id = cur.lastrowid
             else:
-                cursor.execute("INSERT INTO questions (survey_id, question_text) VALUES (?, ?)", (survey_id, q["q"]))
-                question_id = cursor.lastrowid
+                survey_id = row["id"]
+                conn.execute("UPDATE surveys SET category = ? WHERE id = ?", (category, survey_id))
 
-            # Сонголтууд нэмэх
-            for opt in q["opts"]:
-                cursor.execute("SELECT id FROM options WHERE option_text = ? AND question_id = ?", (opt, question_id))
-                if not cursor.fetchone():
-                    cursor.execute("INSERT INTO options (question_id, option_text) VALUES (?, ?)", (question_id, opt))
+            question_ids = []
+            for q_text, options in questions:
+                q_row = conn.execute(
+                    "SELECT id FROM questions WHERE question_text = ? AND survey_id = ?",
+                    (q_text, survey_id),
+                ).fetchone()
+                if q_row:
+                    question_id = q_row["id"]
+                else:
+                    question_id = conn.execute(
+                        "INSERT INTO questions (survey_id, question_text) VALUES (?, ?)",
+                        (survey_id, q_text),
+                    ).lastrowid
+                question_ids.append(question_id)
 
-    conn.commit()
-    conn.close()
-    print("База данных наполнена 15 опросами и вопросами!")
+                for opt in options:
+                    exists = conn.execute(
+                        "SELECT 1 FROM options WHERE option_text = ? AND question_id = ?",
+                        (opt, question_id),
+                    ).fetchone()
+                    if not exists:
+                        conn.execute(
+                            "INSERT INTO options (question_id, option_text) VALUES (?, ?)",
+                            (question_id, opt),
+                        )
+
+            # Демо-ответы только для только что созданных опросов
+            if is_new:
+                for _ in range(random.randint(5, 40)):
+                    for question_id in question_ids:
+                        option_ids = [r["id"] for r in conn.execute(
+                            "SELECT id FROM options WHERE question_id = ?", (question_id,))]
+                        conn.execute(
+                            "INSERT INTO votes (question_id, option_id, user_id, created_at) "
+                            "VALUES (?, ?, NULL, datetime('now'))",
+                            (question_id, random.choice(option_ids)),
+                        )
+    print(f"База данных наполнена: {len(SURVEYS)} опросов.")
+
 
 if __name__ == "__main__":
     seed_data()

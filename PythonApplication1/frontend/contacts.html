@@ -3,48 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Контакты сервиса «Статопрос»: адрес, телефон, режим работы и форма обратной связи.">
+    <meta name="theme-color" content="#0f766e">
     <title>Контакты — Статопрос</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Перейти к основному содержимому</a>
+
     <header class="site-header">
         <div class="container site-header__inner">
-            <a class="logo" href="index.html"><img src="logo.svg" alt="Статопрос" width="160" height="40"></a>
-            <nav class="nav">
+            <a class="logo" href="index.html" aria-label="Статопрос — главная страница">
+                <img src="logo.svg" alt="Статопрос" width="160" height="40">
+            </a>
+            <nav class="nav" aria-label="Основная навигация">
                 <ul class="nav__list">
                     <li><a class="nav__link" href="index.html">Главная</a></li>
                     <li><a class="nav__link" href="catalog.html">Опросы</a></li>
-                    <li><a class="nav__link" href="survey.html">Пример опроса</a></li>
                     <li><a class="nav__link" href="create.html">Создать опрос</a></li>
                     <li><a class="nav__link" href="contacts.html" aria-current="page">Контакты</a></li>
+                    <li><a class="nav__link" href="login.html" id="auth-link">Войти</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main id="main" class="main-content">
+    <main id="main-content" class="main-content">
         <div class="container">
-            <h1>Контакты</h1>
+            <section class="content-section" aria-labelledby="page-title">
+                <h1 id="page-title">Контакты</h1>
+                <p class="section-description">Свяжитесь с нами удобным способом или оставьте сообщение через форму.</p>
+            </section>
+
             <div class="two-col">
-                <section class="panel">
-                    <h2>Как нас найти</h2>
+                <section class="panel" aria-labelledby="info-title">
+                    <h2 id="info-title">Как нас найти</h2>
                     <ul class="contact-list">
-                        <li><strong>Адрес:</strong> Россия, Санкт-Петербург</li>
+                        <li><strong>Адрес:</strong> Россия, г. Санкт-Петербург, ул. Университетская, д. 1</li>
                         <li><strong>Телефон:</strong> <a href="tel:+78120000000">+7 (812) 000-00-00</a></li>
-                        <li><strong>Почта:</strong> <a href="mailto:info@statopros.example">info@statopros.example</a></li>
+                        <li><strong>Электронная почта:</strong> <a href="mailto:info@statopros.example">info@statopros.example</a></li>
                         <li><strong>Режим работы:</strong> пн–пт, 9:00–18:00</li>
                     </ul>
                     <p class="slogan">Каждый голос важен.</p>
                 </section>
 
-                <section class="panel">
-                    <h2>Обратная связь</h2>
-                    <form action="contacts.html" method="get">
-                        <div class="field"><label for="name">Имя</label><input type="text" id="name" name="name" autocomplete="name" required></div>
-                        <div class="field"><label for="email">Электронная почта</label><input type="email" id="email" name="email" autocomplete="email" required></div>
-                        <div class="field"><label for="message">Сообщение</label><textarea id="message" name="message" required></textarea></div>
-                        <button class="btn" type="submit">Отправить</button>
+                <section class="panel" aria-labelledby="feedback-title">
+                    <h2 id="feedback-title">Обратная связь</h2>
+                    <p class="section-description">Поля, отмеченные звёздочкой (*), обязательны.</p>
+
+                    <form id="contact-form" novalidate>
+                        <div class="field">
+                            <label for="name">Имя *</label>
+                            <input type="text" id="name" name="name" placeholder="Иван" autocomplete="name" required>
+                        </div>
+                        <div class="field">
+                            <label for="email">Электронная почта *</label>
+                            <input type="email" id="email" name="email" placeholder="ivan@mail.ru" autocomplete="email" required>
+                        </div>
+                        <div class="field">
+                            <label for="message">Сообщение *</label>
+                            <textarea id="message" name="message" placeholder="Ваш вопрос или предложение..." rows="5" required></textarea>
+                        </div>
+
+                        <p id="contact-form-message" class="status" role="status" aria-live="polite"></p>
+                        <button class="btn" type="submit">Отправить сообщение</button>
                     </form>
                 </section>
             </div>
@@ -52,8 +75,9 @@
     </main>
 
     <footer class="site-footer">
-        <div class="container"><p>© 2026 «Статопрос».</p></div>
+        <div class="container"><p>© 2026 «Статопрос». Учебный проект.</p></div>
     </footer>
+
     <script src="main.js"></script>
 </body>
 </html>
