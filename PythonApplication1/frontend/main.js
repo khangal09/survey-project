@@ -1,7 +1,7 @@
 // ==========================================================
 // ПРОЕКТ: САЙТ ОПРОСОВ "СТАТОПРОС"
 // ФАЙЛ: main.js
-// ВЕРСИЯ: 14.0 (FINAL - 422 FIXED)
+// ВЕРСИЯ: 15.0 (FINAL)
 // ==========================================================
 
 const CATEGORIES = {
@@ -13,7 +13,6 @@ const CATEGORIES = {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// --- Утилиты ---
 const $ = (id) => document.getElementById(id);
 
 function escapeHtml(value) {
@@ -78,7 +77,6 @@ function clearUser() {
     localStorage.removeItem("username");
 }
 
-// --- Карточки опросов ---
 function cardHtml(survey) {
     const cat = CATEGORIES[survey.category] || CATEGORIES.tech;
     const date = String(survey.created_at || "").slice(0, 10);
@@ -110,7 +108,6 @@ function showGridError(grid) {
     grid.innerHTML = '<li class="state-msg state-msg--error">⚠️ Не удалось загрузить опросы. Проверьте, что сервер запущен.</li>';
 }
 
-// --- Шапка: имя пользователя / выход ---
 function initAuthLink() {
     const link = $("auth-link");
     const user = getUser();
@@ -127,7 +124,6 @@ function initAuthLink() {
     });
 }
 
-// --- Погода (Open-Meteo) ---
 async function initWeather() {
     const widget = $("weather-widget");
     if (!widget) return;
@@ -147,7 +143,6 @@ async function initWeather() {
     }
 }
 
-// --- Главная: популярные опросы ---
 async function initHome() {
     const grid = document.querySelector(".survey-grid");
     if (!grid) return;
@@ -160,7 +155,6 @@ async function initHome() {
     }
 }
 
-// --- Каталог: поиск, рубрика, сортировка ---
 async function initCatalog() {
     const grid = $("survey-cards");
     if (!grid) return;
@@ -203,7 +197,6 @@ async function initCatalog() {
     sort.addEventListener("change", update);
 }
 
-// --- Страница опроса ---
 function renderResults(container, questions) {
     container.innerHTML = "";
     questions.forEach((question) => {
@@ -353,7 +346,7 @@ async function initSurvey() {
     });
 }
 
-// --- Создание опроса (ИСПРАВЛЕН 422) ---
+// --- СОЗДАНИЕ ОПРОСА (ИСПРАВЛЕН 422) ---
 async function initCreate() {
     const form = $("create-survey-form");
     if (!form) return;
@@ -363,7 +356,6 @@ async function initCreate() {
     const dateInput = $("end-date");
     const user = getUser();
 
-    // Нельзя выбрать прошедшую дату (по локальному времени)
     const now = new Date();
     dateInput.min = [
         now.getFullYear(),
@@ -391,7 +383,6 @@ async function initCreate() {
         const submit = form.querySelector('button[type="submit"]');
         submit.disabled = true;
         try {
-            // ВАЖНО: передаём category, options, end_date, author_id
             const data = await api("/api/surveys", jsonPost({
                 title: title,
                 description: description,
@@ -410,7 +401,6 @@ async function initCreate() {
 
     form.addEventListener("reset", () => setStatus(message, ""));
 
-    // Боковая панель: статистика и последние опросы
     try {
         const surveys = await api("/api/surveys");
         const totalVotes = surveys.reduce((sum, s) => sum + s.votes, 0);
@@ -432,7 +422,6 @@ async function initCreate() {
     }
 }
 
-// --- Контакты: валидация формы ---
 function showFieldError(input, text) {
     input.classList.add("error-input");
     input.setAttribute("aria-invalid", "true");
@@ -483,7 +472,6 @@ function initContacts() {
     });
 }
 
-// --- Вход и регистрация ---
 function initLogin() {
     const loginForm = $("login-form");
     const registerForm = $("register-form");
@@ -521,7 +509,6 @@ function initLogin() {
     });
 }
 
-// --- Запуск ---
 document.addEventListener("DOMContentLoaded", () => {
     initAuthLink();
     initWeather();
