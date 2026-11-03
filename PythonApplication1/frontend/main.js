@@ -1,10 +1,8 @@
-"use strict";
-
-/* ==========================================================
-   СТАТОПРОС — main.js (v12)
-   Весь JavaScript сайта. Каждая страница запускает только свою
-   часть: init-функции проверяют, есть ли нужные элементы.
-   ========================================================== */
+// ==========================================================
+// ПРОЕКТ: САЙТ ОПРОСОВ "СТАТОПРОС"
+// ФАЙЛ: main.js
+// ВЕРСИЯ: 12.0 (FINAL)
+// ==========================================================
 
 const CATEGORIES = {
     study: { label: "Учёба", cls: "tag--study" },
@@ -15,7 +13,7 @@ const CATEGORIES = {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/* ---------- Утилиты ---------- */
+// --- Утилиты ---
 const $ = (id) => document.getElementById(id);
 
 function escapeHtml(value) {
@@ -80,7 +78,7 @@ function clearUser() {
     localStorage.removeItem("username");
 }
 
-/* ---------- Карточки опросов ---------- */
+// --- Карточки опросов ---
 function cardHtml(survey) {
     const cat = CATEGORIES[survey.category] || CATEGORIES.tech;
     const date = String(survey.created_at || "").slice(0, 10);
@@ -112,7 +110,7 @@ function showGridError(grid) {
     grid.innerHTML = '<li class="state-msg state-msg--error">⚠️ Не удалось загрузить опросы. Проверьте, что сервер запущен.</li>';
 }
 
-/* ---------- Шапка: имя пользователя / выход ---------- */
+// --- Шапка: имя пользователя / выход ---
 function initAuthLink() {
     const link = $("auth-link");
     const user = getUser();
@@ -129,7 +127,7 @@ function initAuthLink() {
     });
 }
 
-/* ---------- Погода (Open-Meteo) ---------- */
+// --- Погода (Open-Meteo) ---
 async function initWeather() {
     const widget = $("weather-widget");
     if (!widget) return;
@@ -149,7 +147,7 @@ async function initWeather() {
     }
 }
 
-/* ---------- Главная: популярные опросы ---------- */
+// --- Главная: популярные опросы ---
 async function initHome() {
     const grid = document.querySelector(".survey-grid");
     if (!grid) return;
@@ -162,7 +160,7 @@ async function initHome() {
     }
 }
 
-/* ---------- Каталог: поиск, рубрика, сортировка ---------- */
+// --- Каталог: поиск, рубрика, сортировка ---
 async function initCatalog() {
     const grid = $("survey-cards");
     if (!grid) return;
@@ -205,7 +203,7 @@ async function initCatalog() {
     sort.addEventListener("change", update);
 }
 
-/* ---------- Страница опроса ---------- */
+// --- Страница опроса ---
 function renderResults(container, questions) {
     container.innerHTML = "";
     questions.forEach((question) => {
@@ -355,7 +353,7 @@ async function initSurvey() {
     });
 }
 
-/* ---------- Создание опроса ---------- */
+// --- Создание опроса ---
 async function initCreate() {
     const form = $("create-survey-form");
     if (!form) return;
@@ -433,7 +431,7 @@ async function initCreate() {
     }
 }
 
-/* ---------- Контакты: валидация формы ---------- */
+// --- Контакты: валидация формы ---
 function showFieldError(input, text) {
     input.classList.add("error-input");
     input.setAttribute("aria-invalid", "true");
@@ -484,7 +482,7 @@ function initContacts() {
     });
 }
 
-/* ---------- Вход и регистрация ---------- */
+// --- Вход и регистрация ---
 function initLogin() {
     const loginForm = $("login-form");
     const registerForm = $("register-form");
@@ -522,7 +520,7 @@ function initLogin() {
     });
 }
 
-/* ---------- Запуск ---------- */
+// --- Запуск ---
 document.addEventListener("DOMContentLoaded", () => {
     initAuthLink();
     initWeather();
