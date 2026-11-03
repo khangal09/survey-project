@@ -1,7 +1,7 @@
 // ==========================================================
 // ПРОЕКТ: САЙТ ОПРОСОВ "СТАТОПРОС"
 // ФАЙЛ: main.js
-// ВЕРСИЯ: 12.0 (FINAL)
+// ВЕРСИЯ: 13.0 (FINAL - исправлен 422)
 // ==========================================================
 
 const CATEGORIES = {
@@ -353,7 +353,7 @@ async function initSurvey() {
     });
 }
 
-// --- Создание опроса ---
+// --- Создание опроса (ИСПРАВЛЕН 422) ---
 async function initCreate() {
     const form = $("create-survey-form");
     if (!form) return;
@@ -391,11 +391,12 @@ async function initCreate() {
         const submit = form.querySelector('button[type="submit"]');
         submit.disabled = true;
         try {
+            // ВАЖНО: передаём category, options, end_date, author_id
             const data = await api("/api/surveys", jsonPost({
-                title,
-                description,
+                title: title,
+                description: description,
                 category: $("category").value,
-                options,
+                options: options,
                 end_date: dateInput.value || null,
                 author_id: user.id
             }));
